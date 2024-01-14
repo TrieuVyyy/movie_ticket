@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import ListMovie from "./ListMovie";
 
 export default function HomePage() {
   return (
-    <div>HomePage</div>
-  )
+    <div className="container">
+      <ListMovie />
+    </div>
+  );
 }
