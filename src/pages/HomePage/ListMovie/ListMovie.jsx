@@ -47,7 +47,7 @@ export default function ListMovie() {
               Chi tiết
             </NavLink>
             <NavLink
-              to="/"
+              to='/seat'
               className="btn border-2 border-yellow-600 px-5 py-2 rounded text-yellow-600 text-xl font-semibold block mt-5 text-center"
             >
               Đặt vé

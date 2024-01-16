@@ -1,0 +1,180 @@
+.container {
+    background-image: url(../../../public/bg.png);
+    height: 150 vh;
+    width: 100vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.container h1 {
+    color: #fff;
+    font-size: 50px;
+    letter-spacing: 2px;
+    padding-top: 30px;
+}
+
+.seats_content {
+    margin: 0 auto;
+    padding: 3.5vw;
+    height: 1000px;
+    width: 700px;
+    background-color: rgb(128 128 128 / 34%);
+    flex-wrap: wrap;
+}
+
+.seats_content h4 {
+    color: #ff9800;
+    margin-bottom: 25px;
+    letter-spacing: 0.5px;
+    line-height: 1.7;
+}
+
+.mr_agilemain {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.agileits-left {
+    flex-basis: 60%;
+    margin-bottom: 1.5em;
+}
+
+.agileits-right {
+    flex-basis: 40%;
+    margin-bottom: 1.5em;
+}
+
+label {
+    font-size: 1em;
+    color: #fff;
+    font-weight: 600;
+}
+
+.mr_agilemain span {
+    color: #f00;
+}
+
+
+input[type="text"], input[type="number"] {
+    padding: 1em;
+    width: 80%;
+    background: transparent;
+    border: 1px solid #888686;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1em;
+    margin-top: 10px;
+    color: #fff;
+}
+
+button {
+    background: #f5f5f5;
+    border: none;
+    color: #000;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-size: 1em;
+    letter-spacing: 1px;
+    font-family: 'Source Sans Pro', sans-serif;
+    cursor: pointer;
+}
+
+ul.seat_w3ls {
+    margin: 2em 0;
+}
+
+li.smallBox {
+    text-align: left;
+    display: inline-block;
+    margin-right: 1em;
+    color: #fff;
+}
+
+.greenBox::before {
+    content: "";
+    background: Green;
+}
+
+.redBox::before {
+    content: "";
+    background: Red;
+}
+
+.emptyBox::before {
+    content: "";
+    background: #fff;
+}
+
+.smallBox::before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.seatStructure {
+    overflow-x:auto;
+}
+
+
+td {
+    width: 40px;
+    font-weight: 600;
+    font-size: 1em;
+    padding-top: 7px;
+    height: 24px;
+    color: #fff;
+}
+
+input[type=checkbox]:before {
+    content: "";
+    width: 25px;
+    height: 18px;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    border: 3px solid #ff9800;
+    box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);
+    background-color: #ffffff;
+}
+
+
+.seats {
+    border: 1px solid red;
+    background: yellow;
+}
+
+.screen {
+    width: 100%;
+    background: #ff9800;
+    margin: 2em 0;
+}
+
+h2.wthree {
+    padding: 0.8em;
+    font-size: 1.2em;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 7px;
+    word-spacing: 10px;
+}
+
+.displayerBoxes {
+    margin-top: 2em;
+}
+
+
+table.Displaytable tr {
+    background: #fff;
+    color: #fff;
+}
+
+.Displaytable th {
+    width: 100%;
+    padding: 7px 10px;
+    color: #000;
+}
