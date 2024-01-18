@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { https } from "../../../service/api";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import Meta from "antd/es/card/Meta";
 import { Tooltip } from "antd";
 import { NavLink } from "react-router-dom";
-import "./style.css";
 
 export default function ListMovie() {
   const [movieArr, setMovieArr] = useState([]);
@@ -20,13 +19,11 @@ export default function ListMovie() {
       });
   }, []);
 
-  //min width: mobie firts
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-      {movieArr.slice(0, 12).map((item) => {
+    <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5">
+      {movieArr.slice(0, 20).map((item) => {
         return (
           <Card
-            className="main"
             key={item.maPhim}
             hoverable
             style={{
@@ -34,27 +31,26 @@ export default function ListMovie() {
             }}
             cover={
               <img
-                className="h-60 object-cover"
+                className="h-64 object-cover"
                 alt="example"
                 src={item.hinhAnh}
               />
             }
           >
-            <NavLink
-              to={`/detail/${item.maPhim}`}
-              className="btn border-2 border-yellow-600 px-5 py-2 rounded text-yellow-600 text-xl font-semibold block mt-5 text-center"
-            >
-              Chi tiết
-            </NavLink>
-            <NavLink
-              to='/seat'
-              className="btn border-2 border-yellow-600 px-5 py-2 rounded text-yellow-600 text-xl font-semibold block mt-5 text-center"
-            >
-              Đặt vé
-            </NavLink>
             <Tooltip title={item.tenPhim}>
               <Meta title={item.tenPhim} />
             </Tooltip>
+            <NavLink
+              to={`/detail/${item.maPhim}`}
+              className="bg-blue-300 px-5 py-2 rounded text-orange-950 text-xl font-sans block mt-5 text-center"
+            >
+              Detail
+            </NavLink>
+            
+            <NavLink
+            className="bg-blue-300 px-5 py-2 rounded text-orange-950 text-xl font-sans block mt-5 text-center">
+              Book Ticket
+            </NavLink>
           </Card>
         );
       })}

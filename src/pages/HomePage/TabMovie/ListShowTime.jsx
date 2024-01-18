@@ -4,7 +4,7 @@ import React from "react";
 export default function ListShowTime({ dsPhim }) {
   console.log("dsPhim: ", dsPhim);
   return (
-    <div className="space-y-5">
+    <div style={{ height: 600 }} className="space-y-5 overflow-scroll">
       {dsPhim.map((phim, index) => {
         return (
           <div className="flex space-x-5">

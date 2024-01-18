@@ -7,13 +7,15 @@ import Header from "./component/Header/Header";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import Layout from "./layout/Layout";
 import SeatMovie from "./pages/SeatMovie/SeatMovie";
+import Spinner from "./component/Spinner/Spinner";
 
 function App() {
   return (
     <>
+      <Spinner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}> 
+          <Route path="/" element={<Layout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/detail/:maPhim" element={<DetailPage />} />
           </Route>
