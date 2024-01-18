@@ -1,20 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./redux/userSlice";
 import spinnerSlice from "./redux/spinnerSlice";
+import aduserSlice from "./redux/aduserSlice";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 export let store = configureStore({
   reducer: {
     userSlice,
     spinnerSlice,
-    // adminUserSlice,
+    aduserSlice,
   },
 });
 

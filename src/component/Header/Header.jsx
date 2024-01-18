@@ -1,9 +1,44 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
+  let { user } = useSelector((state) => state.userSlice);
+  let handleLogout = () => {
+    //xoá localStorage
+    localStorage.removeItem("USER_INFOR");
+    window.location.reload();
+  };
+  let renderMenu = () => {
+    let cssBtn = "rounded px-5 py-2 border-2 border-white";
+    if (user) {
+      // đã đăng nhập
+      return (
+        <>
+          <span>{user.hoTen}</span>
+          <button className={cssBtn} onClick={handleLogout}>
+            Đăng xuất
+          </button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <button
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+            className={cssBtn}
+          >
+            Log in 
+          </button>
+          <NavLink to='/register' className={cssBtn}>Register</NavLink>
+        </>
+      );
+    }
+  };
   return (
-    <header class="p-4 dark:text-gray-100 bg-blue-950 bg-opacity-30  w-full z-10 ">
+    <header class="p-4 dark:text-gray-100 bg-black bg-opacity-30 fixed w-full z-10 ">
       <div class="container flex justify-between h-16 mx-auto">
         <NavLink
           to="/"
@@ -47,28 +82,8 @@ export default function Header() {
             </NavLink>
           </li>
         </ul>
-        <div class="items-center flex-shrink-0 hidden lg:flex">
-          <button class="self-center px-8 py-3 rounded">Sign in</button>
-          <button class="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">
-            Sign up
-          </button>
-        </div>
-        <button class="p-4 lg:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-6 h-6 dark:text-gray-100"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button>
+        <div className="space-x-5">{renderMenu()}</div>
+      
       </div>
     </header>
   );

@@ -47,7 +47,7 @@ export default function ListMovie() {
               Detail
             </NavLink>
             
-            <NavLink
+            <NavLink to='/checkout'
             className="bg-blue-300 px-5 py-2 rounded text-orange-950 text-xl font-sans block mt-5 text-center">
               Book Ticket
             </NavLink>

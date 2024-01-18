@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import './seat.css'
 
 export default function SeatMovie() {
   return (
     <div>
       <div className="container">
-        <h1>MOVIE SEAT SELECTION</h1>
+        <h1 className="justify-center items-center" >MOVIE SEAT SELECTION</h1>
 
         <div className="seats_content">
           <div className="inputForm">
