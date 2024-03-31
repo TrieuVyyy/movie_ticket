@@ -37,6 +37,7 @@ function App() {
           >
             <Route path="users" element={<AdUserPage />} />
           </Route>
+          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />}/>
           <Route path="/checkout" element={<SeatMovie />}/> 
