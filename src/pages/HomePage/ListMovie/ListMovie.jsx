@@ -20,8 +20,8 @@ export default function ListMovie() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5">
-      {movieArr.slice(0, 20).map((item) => {
+    <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 mt-10">
+      {movieArr.slice(0, 12).map((item) => {
         return (
           <Card
             key={item.maPhim}
@@ -38,17 +38,17 @@ export default function ListMovie() {
             }
           >
             <Tooltip title={item.tenPhim}>
-              <Meta title={item.tenPhim} />
+              <Meta className="text-center" title={item.tenPhim} />
             </Tooltip>
             <NavLink
               to={`/detail/${item.maPhim}`}
-              className="bg-blue-300 px-5 py-2 rounded text-orange-950 text-xl font-sans block mt-5 text-center"
+              className="px-5 py-2 rounded bg-yellow-600 text-white text-xl font-sans block mt-5 text-center"
             >
               Detail
             </NavLink>
             
             <NavLink to='/checkout'
-            className="bg-blue-300 px-5 py-2 rounded text-orange-950 text-xl font-sans block mt-5 text-center">
+            className="px-5 py-2 rounded bg-yellow-700 text-white text-xl font-sans block mt-5 text-center">
               Book Ticket
             </NavLink>
           </Card>

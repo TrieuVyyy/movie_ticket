@@ -5,7 +5,7 @@ import Footer from "../../Footer/Footer";
 
 export default function Layout() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-amber-50">
       <Header />
       <Outlet />
       <Footer />

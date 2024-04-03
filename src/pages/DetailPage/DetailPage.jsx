@@ -26,7 +26,7 @@ export default function DetailPage() {
       });
   }, []);
   return (
-    <div className="container flex items-center space-x-5">
+    <div className="container mx-auto flex items-center space-x-10">
       <img
         className="w-64 h-96 shadow-lg shadow-black"
         src={detail?.hinhAnh}

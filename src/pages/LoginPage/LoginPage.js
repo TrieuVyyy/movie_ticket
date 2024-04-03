@@ -3,7 +3,7 @@ import FormLogin from "./FormLogin";
 
 export default function LoginPage() {
   return (
-    <div className="container">
+    <div className="bg-amber-50">
       <FormLogin />
     </div>
   );

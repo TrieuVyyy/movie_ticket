@@ -3,7 +3,7 @@ import React from "react";
 export default function FooterMobile() {
   return (
     <div>
-      <footer class="bg-blue-950 rounded-lg shadow dark:bg-gray-900 m-4">
+      <footer class="bg-black bg-opacity-40 w-full">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
           <div class="sm:flex sm:items-center sm:justify-between">
             <a

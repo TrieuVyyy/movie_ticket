@@ -11,7 +11,7 @@ import Spinner from "./component/Spinner/Spinner";
 import AdUserPage from "./pages/AdUserPage/AdUserPage";
 import SecureGate from "./component/Header/layout/SecureGate";
 import AdminLayout from "./component/Header/layout/Admin";
-import RegisterPage from './pages/RegisterPage/RegisterPage'
+import SignupPage from "./pages/SignupPage/SignupPage";
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
           </Route>
           
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />}/>
+          <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/checkout" element={<SeatMovie />}/> 
         </Routes>
       </BrowserRouter>

@@ -38,7 +38,7 @@ export default function Header() {
     }
   };
   return (
-    <header class="p-4 dark:text-gray-100 bg-black bg-opacity-30 fixed w-full z-10 ">
+    <header class="p-4 dark:text-gray-100 bg-black bg-opacity-40 w-full z-10 ">
       <div class="container flex justify-between h-16 mx-auto">
         <NavLink
           to="/"
@@ -60,7 +60,7 @@ export default function Header() {
           <li class="flex">
             <NavLink
               to="/"
-              className="flex items-center px-4 -mb-1 border-b-2 border-white" 
+              className="flex items-center px-4 -mb-1 text-white hover:line-clamp-none" 
             >
               Home
             </NavLink>
@@ -68,7 +68,7 @@ export default function Header() {
           <li class="flex">
             <NavLink
               to="/"
-              className="flex items-center px-4 -mb-1 border-b-2 border-white"
+              className="flex items-center px-4 -mb-1 text-white hover:line-clamp-none"
             >
               News
             </NavLink>
@@ -76,7 +76,7 @@ export default function Header() {
           <li class="flex">
             <NavLink
               to="/"
-              className="flex items-center px-4 -mb-1 border-b-2 border-white"
+              className="flex items-center px-4 -mb-1 text-white hover:line-clamp-none"
             >
               Contact
             </NavLink>
