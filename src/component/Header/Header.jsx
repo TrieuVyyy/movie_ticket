@@ -62,7 +62,7 @@ export default function Header() {
               to="/"
               className="flex items-center px-4 -mb-1 text-white hover:line-clamp-none" 
             >
-              Home
+              Trang chủ
             </NavLink>
           </li>
           <li class="flex">
@@ -70,7 +70,7 @@ export default function Header() {
               to="/"
               className="flex items-center px-4 -mb-1 text-white hover:line-clamp-none"
             >
-              News
+              Tin tức
             </NavLink>
           </li>
           <li class="flex">
@@ -78,7 +78,7 @@ export default function Header() {
               to="/"
               className="flex items-center px-4 -mb-1 text-white hover:line-clamp-none"
             >
-              Contact
+              Liên hệ
             </NavLink>
           </li>
         </ul>

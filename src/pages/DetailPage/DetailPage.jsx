@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { https } from "../../service/api";
 import { Rate } from "antd";
 import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
+import { NavLink } from "react-router-dom";
 const customIcons = {
   1: <FrownOutlined />,
   2: <FrownOutlined />,
@@ -41,6 +42,12 @@ export default function DetailPage() {
           character={({ index = 0 }) => customIcons[index + 1]}
           style={{ color: "red" }}
         />
+        <NavLink
+          to="/checkout"
+          className="rounded bg-yellow-700 text-white font-sans mt-5 text-center px-3 py-1 ml-4"
+        >
+          Đặt vé
+        </NavLink>
       </div>
     </div>
   );

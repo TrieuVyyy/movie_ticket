@@ -6,7 +6,7 @@ export default function SeatMovie() {
   return (
     <div>
       <div className="container">
-        <h1 className="justify-center items-center" >MOVIE SEAT SELECTION</h1>
+        <h1 className="flex justify-center items-center" >MOVIE SEAT SELECTION</h1>
 
         <div className="seats_content">
           <div className="inputForm">

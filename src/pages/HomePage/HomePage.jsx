@@ -5,10 +5,12 @@ import Slider from "./Slice/Slider";
 
 export default function HomePage() {
   return (
-    <div className="container mx-auto">
+    <div>
       <Slider />
-      <ListMovie />
-      <TabMovie />
+      <div className="container mx-auto">
+        <ListMovie /> 
+        <TabMovie />
+      </div>
     </div>
   );
 }

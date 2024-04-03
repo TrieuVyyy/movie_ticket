@@ -44,12 +44,12 @@ export default function ListMovie() {
               to={`/detail/${item.maPhim}`}
               className="px-5 py-2 rounded bg-yellow-600 text-white text-xl font-sans block mt-5 text-center"
             >
-              Detail
+              Chi tiết
             </NavLink>
             
             <NavLink to='/checkout'
             className="px-5 py-2 rounded bg-yellow-700 text-white text-xl font-sans block mt-5 text-center">
-              Book Ticket
+              Đặt vé
             </NavLink>
           </Card>
         );
