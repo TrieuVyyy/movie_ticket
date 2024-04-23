@@ -8,13 +8,12 @@ export default function FooterTable() {
           <div class="sm:flex sm:items-center sm:justify-between">
             <a
               href="/"
-              class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+              class="flex items-center mb-4 sm:mb-0 rtl:space-x-reverse"
             >
-              <img
-                src="https://media.lottecinemavn.com/Media/WebAdmin/ccc95ee5b9274a12ba3e51317250dcbe.png"
-                class="h-8"
-                alt="Flowbite Logo"
-              />
+              <h1 className="inline-block text-xl font-extrabold text-amber-400">
+                CYBER
+              </h1>
+              <h1 className="text-xl font-extrabold text-white">CINEMA</h1>
             </a>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
               <li>

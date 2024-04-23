@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from "react-redux";
-import { RingLoader } from "react-spinners";
+import { HashLoader } from "react-spinners";
 
 export default function Spinner() {
     let {isLoading} = useSelector((state) => state.spinnerSlice);
@@ -9,7 +9,7 @@ export default function Spinner() {
       style={{
         width: "100vw",
         height: "100vh",
-        background: "#f0ead2",
+        background: "#faedcd",
         position: "fixed",
         top: 0,
         left: 0,
@@ -20,7 +20,7 @@ export default function Spinner() {
       }}
     >
         {/* coolors  */}
-        <RingLoader color="#36d7b7" />
+        <HashLoader color="#d4a373" size={80} speedMultiplier={2}/>
     </div>
   ) : (
     <></>

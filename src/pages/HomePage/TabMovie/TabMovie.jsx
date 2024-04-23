@@ -5,21 +5,21 @@ import { Tooltip } from "antd";
 import Meta from "antd/es/card/Meta";
 import ListShowTime from "./ListShowTime";
 
-export default function TabMovie() {
+export default function TabMovie(props) {
+  const { idSection } = props;
   const [listHeThongRap, setListHeThongRap] = useState([]);
   useEffect(() => {
     https
       .get(`/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP01`)
       .then((res) => {
         setListHeThongRap(res.data.content);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
   const onChange = (key) => {
-    console.log(key);
+    // console.log(key);
   };
 
   const items = listHeThongRap.map((heThongRap) => {
@@ -52,7 +52,10 @@ export default function TabMovie() {
   });
 
   return (
-    <div>
+    <div id="hethong">
+      <h1 className="block bg-amber-100 text-center text-2xl font-bold p-3 mb-5 shadow-xl">
+        LỊCH CHIẾU
+      </h1>
       <Tabs
         style={{ height: 600 }}
         tabPosition="left"
@@ -60,7 +63,6 @@ export default function TabMovie() {
         items={items}
         onChange={onChange}
       />
-      ;
     </div>
   );
 }

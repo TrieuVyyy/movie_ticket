@@ -32,9 +32,9 @@ const FormLogin = () => {
   };
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="login-form-container flex justify-center items-center bg-white rounded-3xl w-auto">
-        <div className="left-form">
-          <h1 className="title text-center pb-5 font-semibold font-mono text-2xl">
+      <div className="form-login flex justify-center items-center rounded-2xl w-96 h-96">
+        <div>
+          <h1 className="title text-center pb-5 font-semibold font-mono text-4xl text-white">
             Đăng nhập
           </h1>
           <Form
@@ -42,7 +42,7 @@ const FormLogin = () => {
             name="basic"
             layout="vertical"
             style={{
-              maxWidth: 500,
+              maxWidth: 600,
             }}
             initialValues={{
               remember: true,
@@ -76,34 +76,30 @@ const FormLogin = () => {
             </Form.Item>
 
             <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Lưu tài khoản</Checkbox>
-            </Form.Item>
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox className="text-white">Lưu tài khoản</Checkbox>
+              </Form.Item>
 
-            <a className="ml-28" href="">
-              Quên mật khẩu
-            </a>
-          </Form.Item>
+              <a className="ml-28 text-white" href="">
+                Quên mật khẩu
+              </a>
+            </Form.Item>
 
             <Form.Item>
               <Button
-                className="bg-orange-400"
+                className="bg-blue-500"
                 style={{ width: "100%" }}
                 htmlType="submit"
+                type="primary"
               >
-                Đăng nhâp
+                Đăng nhập
               </Button>
-              hoặc <a href="/signup">đăng ký ngay!</a>
+              <p className="inline-block text-white">hoặc</p>{" "}
+              <a className="text-white" href="/signup">
+                đăng ký ngay!
+              </a>
             </Form.Item>
           </Form>
-        </div>
-        <div className="right-banner ml-4">
-          <img
-            className="rounded-r-3xl"
-            src="https://media.lottecinemavn.com/Media/WebAdmin/f3f0e65d75964ba09aaa2094e7bf47dd.png"
-            border={0}
-            alt="Log-in Shinhan"
-          />
         </div>
       </div>
     </div>

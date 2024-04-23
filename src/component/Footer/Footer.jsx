@@ -23,7 +23,7 @@ const Default = ({ children }) => {
 
 export default function Footer() {
   return (
-    <div>
+    <div id='lienhe'>
         <Desktop>
             <FooterDesktop/>
         </Desktop>

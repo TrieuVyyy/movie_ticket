@@ -6,7 +6,7 @@ import { fetchUserListAction } from "../../redux/aduserSlice";
 
 export default function AdmUserPage() {
   const [listUser, setListUser] = useState([]);
-  const {users} = useSelector((state) => state.adminUserSlice);
+  const {users} = useSelector((state) => state.aduserSlice);
   let fetchUserList = async () => {
     try {
       let res = await https.get(
@@ -19,7 +19,6 @@ export default function AdmUserPage() {
   };
   let dispatch = useDispatch();
   useEffect(() => {
-    // cách 3
     dispatch(fetchUserListAction());
   }, []);
   const columns = [
@@ -37,6 +36,11 @@ export default function AdmUserPage() {
       title: "Email",
       dataIndex: "email",
       key: "email",
+    },
+    {
+      title: "User Type",
+      dataIndex: "maLoaiNguoiDung",
+      key: "maLoaiNguoiDung",
     },
     {
       title: "Aciton",
@@ -64,10 +68,10 @@ export default function AdmUserPage() {
             </svg>
           </button>
         );
-        // hero icon
       },
     },
   ];
+
   let handleDelete = async (id) => {
     try {
       await https.delete(`/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`);
@@ -83,4 +87,4 @@ export default function AdmUserPage() {
     </div>
   );
 }
-// /
+

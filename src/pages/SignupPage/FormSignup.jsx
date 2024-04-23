@@ -9,7 +9,7 @@ import {
   MailOutlined,
   PhoneOutlined,
   FieldBinaryOutlined,
-  ContactsOutlined
+  ContactsOutlined,
 } from "@ant-design/icons";
 import { setUser } from "../../redux/userSlice";
 
@@ -39,17 +39,18 @@ export default function FormSignup() {
   };
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="signup-form-container flex justify-center items-center bg-white rounded-3xl w-auto">
-        <div className="left-form">
-          <h1 className="title text-center pb-4 font-semibold font-mono text-2xl">
+      <div className="form-signup flex justify-center items-center rounded-2xl w-96">
+        <div>
+          <h1 className="title text-center font-semibold font-mono text-4xl text-white">
             Đăng ký
           </h1>
+          <h4 className="text-center text-orange-200 font-mono pb-5 pt-2">Nhập thông tin để đăng ký</h4>
           <Form
             className="ml-4"
             name="basic"
             layout="vertical"
             style={{
-              maxWidth: 500,
+              maxWidth: 600,
             }}
             initialValues={{
               remember: true,
@@ -66,7 +67,6 @@ export default function FormSignup() {
                   message: "Vui lòng điền tài khoản!",
                 },
               ]}
-              style={{ marginBottom: 15 }}
             >
               <Input prefix={<TeamOutlined />} placeholder="Tài khoản" />
             </Form.Item>
@@ -79,9 +79,11 @@ export default function FormSignup() {
                   message: "Vui lòng điền mật khẩu!",
                 },
               ]}
-              style={{ marginBottom: 15 }}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
+              <Input.Password
+                prefix={<LockOutlined />}
+                placeholder="Mật khẩu"
+              />
             </Form.Item>
 
             <Form.Item
@@ -93,7 +95,6 @@ export default function FormSignup() {
                   message: "Vui lòng điền email!",
                 },
               ]}
-              style={{ marginBottom: 15 }}
             >
               <Input prefix={<MailOutlined />} placeholder="Email" />
             </Form.Item>
@@ -106,9 +107,19 @@ export default function FormSignup() {
                   message: "Vui lòng điền số điện thoại!",
                 },
               ]}
-              style={{ marginBottom: 15 }}
             >
               <Input prefix={<PhoneOutlined />} placeholder="Số điện thoại" />
+            </Form.Item>
+            <Form.Item
+              name="hoTen"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng điền họ tên!",
+                },
+              ]}  
+            >
+              <Input prefix={<ContactsOutlined />} placeholder="Họ tên" />
             </Form.Item>
             <Form.Item
               name="maNhom"
@@ -118,21 +129,8 @@ export default function FormSignup() {
                   message: "Vui lòng điền mã nhóm!",
                 },
               ]}
-              style={{ marginBottom: 15 }}
             >
               <Input prefix={<FieldBinaryOutlined />} placeholder="Mã nhóm" />
-            </Form.Item>
-            <Form.Item
-              name="hoTen"
-              rules={[
-                {
-                  required: true,
-                  message: "Vui lòng điền họ tên!",
-                },
-              ]}
-              style={{ marginBottom: 15 }}
-            >
-              <Input prefix={<ContactsOutlined />} placeholder="Họ tên" />
             </Form.Item>
 
             <Form.Item>
@@ -143,17 +141,11 @@ export default function FormSignup() {
               >
                 Đăng ký
               </Button>
+              <a className="text-white" href="/login">
+                Bạn đã có sẵn tài khoản?
+              </a>
             </Form.Item>
-            <a href="/login">Bạn đã có sẵn một tài khoản?</a>
           </Form>
-        </div>
-        <div className="right-banner ml-4">
-          <img
-            className="rounded-r-3xl"
-            src="https://media.lottecinemavn.com/Media/WebAdmin/f3f0e65d75964ba09aaa2094e7bf47dd.png"
-            border={0}
-            alt="Log-in Shinhan"
-          />
         </div>
       </div>
     </div>
