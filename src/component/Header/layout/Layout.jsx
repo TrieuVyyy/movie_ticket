@@ -11,9 +11,7 @@ export default function Layout() {
       <Outlet />
       <Footer />
       {/* <Menus /> */}
-      <br />
-      <br />
-      <br />
+
     </div>
   );
 }

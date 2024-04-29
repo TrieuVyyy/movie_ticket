@@ -11,6 +11,8 @@ import SecureGate from "./component/Header/layout/SecureGate";
 import AdminLayout from "./component/Header/layout/Admin";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import CheckOut from "./pages/Checkout/Checkout";
+import FilmsPage from "./pages/AdUserPage/FilmsPage";
+import AddFilmPage from "./pages/AdUserPage/AddFilmPage";
 
 function App() {
   return (
@@ -35,7 +37,9 @@ function App() {
               </SecureGate>
             }
           >
-            <Route path="" element={<AdUserPage />} />
+            <Route path="users" element={<AdUserPage />} />
+            <Route path="films" element={<FilmsPage />}/>
+            <Route path="add" element={<AddFilmPage />}/>
           </Route>
 
           <Route path="/login" element={<LoginPage />} />

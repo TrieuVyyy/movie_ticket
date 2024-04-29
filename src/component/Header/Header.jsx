@@ -58,7 +58,7 @@ export default function Header() {
           <a href="#listphim">Phim</a>
           <a href="#hethong">Hệ thống rạp</a>
           <a href="#lienhe">Liên hệ</a>
-          <a href="/admin">Admin Page</a>
+          <a href="/admin/users">Admin Page</a>
         </nav>
         <div className="flex items-center space-x-2">{renderMenu()}</div>
       </div>

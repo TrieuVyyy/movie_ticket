@@ -1,67 +1,87 @@
-import React from 'react';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { Outlet } from 'react-router-dom';
-import Header from '../Header';
+import React, { useState } from "react";
+import {
+  FileOutlined,
+  FolderOutlined,
+  UserOutlined,
+  PlusCircleOutlined,
+  DesktopOutlined,
+} from "@ant-design/icons";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Link, Outlet } from "react-router-dom";
+import Header from "../Header";
 const { Content, Sider } = Layout;
-const items1 = ['1', '2', '3'].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
+const items = [
+  {
+    key: "user",
+    icon: <UserOutlined />,
+    label: <Link to="/admin/users">User</Link>,
+  },
+  {
+    key: "files",
+    icon: <FileOutlined />,
+    label: "Files",
+    children: [
+      {
+        key: "films",
+        icon: <FolderOutlined />,
+        label: <Link to="/admin/films">Films</Link>,
+      },
+      {
+        key: "addFilm",
+        icon: <PlusCircleOutlined />,
+        label: <Link to="/admin/add">Add Film</Link>,
+      },
+    ],
+  },
+  {
+    key: "showtimes",
+    icon: <DesktopOutlined />,
+    label: "Show Time",
+  },
+];
+
 const AdminLayout = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
   return (
     <Layout>
-      <Header></Header>
+      {/* <Header>
+      </Header> */}
       <Layout>
         <Sider
           width={200}
-          style={{ 
+          style={{
             background: colorBgContainer,
           }}
         >
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={["user"]}
+            defaultOpenKeys={["files"]}
             style={{
-              height: '100%',
+              height: "100%",
               borderRight: 0,
             }}
-            items={items2}
+            items={items}
           />
         </Sider>
         <Layout
           style={{
-            padding: '0 24px 24px',
+            padding: "0 24px 24px",
           }}
         >
           <Breadcrumb
             style={{
-              margin: '16px 0',
+              margin: "16px 0",
             }}
           >
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
+
           <Content
             style={{
               padding: 24,
@@ -71,7 +91,7 @@ const AdminLayout = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            <Outlet/>
+            <Outlet />
           </Content>
         </Layout>
       </Layout>
