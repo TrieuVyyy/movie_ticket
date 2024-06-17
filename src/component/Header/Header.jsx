@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import {
+  UserOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import { Avatar, Dropdown } from "antd";
 
 export default function Header() {
   let { user } = useSelector((state) => state.userSlice);
@@ -9,6 +15,20 @@ export default function Header() {
     localStorage.removeItem("USER_INFOR");
     window.location.reload();
   };
+
+  const items = [
+    {
+      key: "1",
+      label: <NavLink to={`/account/${user.taiKhoan}`}>Tài khoản</NavLink>,
+      icon: <SettingOutlined />,
+    },
+    {
+      key: "2",
+      label: <a onClick={handleLogout}>Đăng xuất</a>,
+      icon: <LogoutOutlined />,
+    },
+  ];
+
   let renderMenu = () => {
     let cssBtn = "rounded px-5 py-2 border-2 border-white text-white";
     if (user) {
@@ -18,9 +38,12 @@ export default function Header() {
           <span className="text-white">
             Xin chào <span className="uppercase">{user.hoTen}</span> !
           </span>
-          <button className={cssBtn} onClick={handleLogout}>
-            Đăng xuất
-          </button>
+          <Dropdown menu={{ items }} trigger={["click"]}>
+            <Avatar
+              size={52}
+              icon={<UserOutlined />}
+            />
+          </Dropdown>
         </>
       );
     } else {
@@ -34,7 +57,7 @@ export default function Header() {
           >
             Đăng nhập
           </button>
-          <NavLink to="/register" className={cssBtn}>
+          <NavLink to="/signup" className={cssBtn}>
             Đăng ký
           </NavLink>
         </>
@@ -50,7 +73,7 @@ export default function Header() {
           className="logo flex items-center"
         >
           <h1 className="inline-block text-3xl font-extrabold text-amber-400">
-            CYBER
+            VT
           </h1>
           <h1 className="text-3xl font-extrabold text-white">CINEMA</h1>
         </NavLink>

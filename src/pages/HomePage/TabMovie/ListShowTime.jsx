@@ -22,7 +22,7 @@ export default function ListShowTime({ dsPhim }) {
     <div style={{ height: 600 }} className="space-y-5 overflow-scroll">
       {dsPhim.map((phim, index) => {
         return (
-          <div className="flex space-x-5 shadow-md p-4 hover:shadow-lg">
+          <div className="flex space-x-5 p-4 shadow-md">
             <img
               className="w-24 h-28 rounded object-cover"
               src={phim.hinhAnh}
@@ -40,7 +40,7 @@ export default function ListShowTime({ dsPhim }) {
                       onClick={() => handleBookingClick(item.maLichChieu)}
                       className="bg-amber-300 font-light text-center px-2 py-2 rounded hover:bg-amber-400"
                     >
-                      {moment(item.ngayChieuGioChieu).format("DD/mm/yyyy ~ LT")}
+                      {moment(item.ngayChieuGioChieu, ).format("DD/MM/yyyy ~ LT")}
                     </button>
                   );
                 })}

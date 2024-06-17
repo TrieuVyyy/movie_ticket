@@ -124,9 +124,9 @@ export default function ListMovie(props) {
                 <div className="btnDetail absolute left-0 right-0 bottom-0 text-center opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
                   <NavLink
                     to={`/detail/${item.maPhim}`}
-                    className="block text-center p-2 text-white hover:bg-slate-500"
+                    className="block p-2 text-center text-black font-semibold hover:bg-amber-300"
                   >
-                    ĐẶT VÉ
+                    CHI TIẾT
                   </NavLink>
                 </div>
               </div>

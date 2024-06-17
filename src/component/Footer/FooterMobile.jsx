@@ -11,7 +11,7 @@ export default function FooterMobile() {
               class="flex items-center mb-4 sm:mb-0 rtl:space-x-reverse"
             >
               <h1 className="inline-block text-xl font-extrabold text-amber-400">
-                CYBER
+                VT
               </h1>
               <h1 className="text-xl font-extrabold text-white ">CINEMA</h1>
             </a>

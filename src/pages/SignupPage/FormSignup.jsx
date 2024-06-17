@@ -30,7 +30,7 @@ export default function FormSignup() {
         message.success("Đăng ký thành công");
       })
       .catch((err) => {
-        message.success("Đăng ký thất bại");
+        message.success("Email đã tồn tại!");
         console.log(err);
       });
   };
@@ -44,11 +44,12 @@ export default function FormSignup() {
           <h1 className="title text-center font-semibold font-mono text-4xl text-white">
             Đăng ký
           </h1>
-          <h4 className="text-center text-orange-200 font-mono pb-5 pt-2">Nhập thông tin để đăng ký</h4>
+          <h4 className="text-center text-orange-200 font-mono pb-5 pt-2">
+            Nhập thông tin để đăng ký
+          </h4>
           <Form
             className="ml-4"
             name="basic"
-            layout="vertical"
             style={{
               maxWidth: 600,
             }}
@@ -100,7 +101,7 @@ export default function FormSignup() {
             </Form.Item>
 
             <Form.Item
-              name="soDt"
+              name="soDT"
               rules={[
                 {
                   required: true,
@@ -117,7 +118,7 @@ export default function FormSignup() {
                   required: true,
                   message: "Vui lòng điền họ tên!",
                 },
-              ]}  
+              ]}
             >
               <Input prefix={<ContactsOutlined />} placeholder="Họ tên" />
             </Form.Item>

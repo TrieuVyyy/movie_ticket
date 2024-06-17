@@ -5,9 +5,9 @@ import { Tooltip } from "antd";
 import Meta from "antd/es/card/Meta";
 import ListShowTime from "./ListShowTime";
 
-export default function TabMovie(props) {
-  const { idSection } = props;
+export default function TabMovie() {
   const [listHeThongRap, setListHeThongRap] = useState([]);
+  
   useEffect(() => {
     https
       .get(`/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP01`)
@@ -18,8 +18,9 @@ export default function TabMovie(props) {
         console.log(err);
       });
   }, []);
+
   const onChange = (key) => {
-    // console.log(key);
+
   };
 
   const items = listHeThongRap.map((heThongRap) => {

@@ -8,6 +8,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./redux/userSlice";
 import spinnerSlice from "./redux/spinnerSlice";
 import aduserSlice from "./redux/aduserSlice";
+import seatSlice from "./redux/seatSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -16,6 +17,7 @@ export let store = configureStore({
     userSlice,
     spinnerSlice,
     aduserSlice,
+    seatSlice,
   },
 });
 

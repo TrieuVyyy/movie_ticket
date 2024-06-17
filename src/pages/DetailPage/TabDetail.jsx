@@ -1,35 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import { https } from "../../service/api";
 import { Tabs } from "antd";
 import { Tooltip } from "antd";
 import Meta from "antd/es/card/Meta";
-
 import { useParams } from "react-router-dom";
+import ShowTimeDetail from "./ShowTimeDetail";
 
 export default function TabDetail({ phim }) {
-  const [listHeThongRap, setListHeThongRap] = useState([]);
+  const [showTime, setShowTime] = useState([]);
   let { maPhim } = useParams();
 
   useEffect(() => {
-    if (phim) {
       https
-        .get(`/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${phim.maPhim}`)
+        .get(`/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`)
         .then((res) => {
           console.log(res.data);
-          setListHeThongRap(res.data.content);
+          setShowTime(res.data.content);
         })
         .catch((err) => {
           console.log(err);
         });
-    }
   }, []);
 
   const onChange = (key) => {
     console.log(key);
   };
 
-  const items = listHeThongRap.length > 0 && (
-    listHeThongRap.map((heThongRap) => ({
+  const items = showTime.length > 0 && (
+    showTime.heThongRapChieu.map((heThongRap) => ({
       key: heThongRap.tenHeThongRap,
       label: <img className="w-16" src={heThongRap.logo} />,
       children: (
@@ -48,6 +46,7 @@ export default function TabDetail({ phim }) {
                 </Tooltip>
               </div>
             ),
+            children: <ShowTimeDetail />
           }))}
         />
       ),
@@ -56,7 +55,7 @@ export default function TabDetail({ phim }) {
 
   return (
     <div>
-      {listHeThongRap.length > 0 && (
+      {showTime.length > 0 && (
         <Tabs
           style={{ height: 600 }}
           tabPosition="left"
@@ -65,7 +64,7 @@ export default function TabDetail({ phim }) {
           onChange={onChange}
         />
       )}
-      {listHeThongRap.length === 0 && <h1 className="text-center text-xl font-medium italic">Hiện tại chưa có lịch chiếu</h1>}
+      {showTime.length === 0 && <h1 className="text-center text-xl font-medium italic">Hiện tại chưa có lịch chiếu</h1>}
     </div>
   );
 }

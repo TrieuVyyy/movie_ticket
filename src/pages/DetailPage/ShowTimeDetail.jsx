@@ -3,18 +3,12 @@ import { NavLink } from "react-router-dom";
 import moment from "moment";
 
 
-export default function ShowTimeDetail({dsPhim}) {
-    // console.log('phim:', dsPhim)
+export default function ShowTimeDetail() {
   return (
     <div style={{ height: 600 }} className="space-y-5 overflow-scroll">
-      {dsPhim.map((phim, index) => {
+      {/* {dsPhim.map((phim, index) => {
         return (
           <div className="flex space-x-5">
-            {/* <img
-              className="w-40 h-48 object-cover "
-              src={phim.hinhAnh}
-              alt=""
-            /> */}
             <div>
               <h1 className="uppercase font-bold text-xl">{phim.tenRap}</h1>
               <NavLink to="/booking">
@@ -34,7 +28,7 @@ export default function ShowTimeDetail({dsPhim}) {
             </div>
           </div>
         );
-      })}
+      })} */}
     </div>
   )
 }

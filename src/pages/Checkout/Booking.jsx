@@ -1,180 +1,171 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSeat, clearSelection } from "../../redux/bookTicketSlice";
 import { https } from "../../service/api";
 import moment from "moment";
+import { useNavigate, useParams } from "react-router-dom";
+import Seat from "./Seat";
+import { message } from "antd";
 
-export default function Booking({ maLichChieu }) {
-  // const selectedSeats = useSelector((state) => state.bookTicket.selectedSeats);
+export default function Booking() {
+  let { maLichChieu } = useParams();
+  const [ticketRoomList, setTicketRoomList] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const navigate = useNavigate();
 
-  // const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    https
+      .get(`/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`)
+      .then((res) => {
+        console.log(res.data);
+        setTicketRoomList(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   if (selectedSeats && selectedSeats.length > 0) {
-  //     const calculateTotalPrice = () => {
-  //       let total = 0;
-  //       for (const seat of selectedSeats) {
-  //         total += 150000;
-  //       }
-  //       setTotalPrice(total);
-  //     };
-  //     calculateTotalPrice();
-  //   }
-  // }, [selectedSeats]);
+  const handleSeatClick = (seat) => {
+    if (!seat.daDat) {
+      if (selectedSeats.includes(seat)) {
+        setSelectedSeats(selectedSeats.filter((s) => s !== seat));
+      } else {
+        setSelectedSeats([...selectedSeats, seat]);
+      }
+    }
+  };
 
-  // const handleSeatClick = (row, number) => {
-  //   dispatch(selectSeat({ row, number }));
-  // };
+  const total = () => {
+    return selectedSeats.reduce((total, seat) => total + seat.giaVe, 0);
+  };
 
-  // const handleClearSelection = () => {
-  //   dispatch(clearSelection());
-  //   setTotalPrice(0);
-  // };
+  const handleBooking = () => {
+    const bookingData = {
+      maLichChieu: maLichChieu,
+      danhSachVe: selectedSeats.map((seat) => ({
+        maGhe: seat.maGhe,
+        giaVe: seat.giaVe,
+      })),
+    };
+    https
+      .post("/api/QuanLyDatVe/DatVe", bookingData)
+      .then((res) => {
+        message.success("Đặt vé thành công");
+        const taiKhoan = JSON.parse(localStorage.getItem("USER_INFOR"))?.taiKhoan;
+        navigate(`/account/${taiKhoan}`, {
+          state: { activeTab: "2" },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error("Đặt vé thất bại, vui lòng thử lại");
+      });
+  };
 
   return (
-    <div>
-      <div className="seatStructure mx-auto py-5 flex justify-center items-center space-x-36">
-        <div className="seatSelect">
-          <ul className="showcase py-4 flex justify-center space-x-5">
-            <h1 className="title text-lg font-medium mr-3">
-              CHỌN GHẾ LIỀN KỀ:
-            </h1>
-            <li>
-              <div className="seat selected"></div>
-              <small>Đang chọn</small>
-            </li>
-            <li>
-              <div className="seat sold"></div>
-              <small>Đã đặt</small>
-            </li>
-            <li>
-              <div className="seat"></div>
-              <small>Trống</small>
-            </li>
-          </ul>
-          <div className="seat_container space-y-1">
-            <div className="screen my-3 text-center">SCREEN</div>
+    <div className="seatStructure mx-5 py-5 flex justify-center items-center space-x-10">
+      <div className="seatSelect">
+        <ul className="showcase py-4 flex justify-center space-x-5">
+          <h1 className="title text-lg font-medium mr-3">CHỌN GHẾ LIỀN KỀ:</h1>
 
-            <div className="row">
-              <div className="seat">A1</div>
-              <div className="seat">A2</div>
-              <div className="seat">A3</div>
-              <div className="seat">A5</div>
-              <div className="seat">A6</div>
-              <div className="seat">A7</div>
-              <div className="seat">A8</div>
-              <div className="seat">A9</div>
-              <div className="seat">A10</div>
-            </div>
-            <div className="row">
-              <div className="seat">B1</div>
-              <div className="seat">B2</div>
-              <div className="seat">B3</div>
-              <div className="seat">B4</div>
-              <div className="seat sold">B5</div>
-              <div className="seat sold">B6</div>
-              <div className="seat">B7</div>
-              <div className="seat">B8</div>
-              <div className="seat">B9</div>
-              <div className="seat">B10</div>
-              <div className="seat">B11</div>
-              <div className="seat">B12</div>
-            </div>
-            <div className="row">
-              <div className="seat">C1</div>
-              <div className="seat">C2</div>
-              <div className="seat">C3</div>
-              <div className="seat">C4</div>
-              <div className="seat">C5</div>
-              <div className="seat">C6</div>
-              <div className="seat">C7</div>
-              <div className="seat">C8</div>
-              <div className="seat">C9</div>
-              <div className="seat sold">C10</div>
-              <div className="seat sold">C11</div>
-              <div className="seat sold">C12</div>
-            </div>
-            <div className="row">
-              <div className="seat">D1</div>
-              <div className="seat">D2</div>
-              <div className="seat">D3</div>
-              <div className="seat">D4</div>
-              <div className="seat">D5</div>
-              <div className="seat">D6</div>
-              <div className="seat">D7</div>
-              <div className="seat">D8</div>
-              <div className="seat">D9</div>
-              <div className="seat">D10</div>
-              <div className="seat">D11</div>
-              <div className="seat">D12</div>
-            </div>
-            <div className="row">
-              <div className="seat">E1</div>
-              <div className="seat">E2</div>
-              <div className="seat">E3</div>
-              <div className="seat">E4</div>
-              <div className="seat">E5</div>
-              <div className="seat">E6</div>
-              <div className="seat">E7</div>
-              <div className="seat">E8</div>
-              <div className="seat">E9</div>
-              <div className="seat">E10</div>
-              <div className="seat">E11</div>
-              <div className="seat">E12</div>
-            </div>
-            <div className="row">
-              <div className="seat">F1</div>
-              <div className="seat">F2</div>
-              <div className="seat">F3</div>
-              <div className="seat">F4</div>
-              <div className="seat">F5</div>
-              <div className="seat">F6</div>
-              <div className="seat">F7</div>
-              <div className="seat">F8</div>
-              <div className="seat">F9</div>
-              <div className="seat">F10</div>
-              <div className="seat">F11</div>
-              <div className="seat">F12</div>
-            </div>
+          <li>
+            <div className="seat vip"></div>
+            <small>Vip</small>
+          </li>
+          <li>
+            <div className="seat"></div>
+            <small>Thường</small>
+          </li>
+          <li>
+            <div className="seat selected"></div>
+            <small>Đang chọn</small>
+          </li>
+          <li>
+            <div className="seat sold"></div>
+            <small>Đã đặt</small>
+          </li>
+        </ul>
+        <div className="seatList space-y-10">
+          <div className="screen my-3 text-center text-black">SCREEN</div>
+          <div className="seatDetail grid">
+            {ticketRoomList?.danhSachGhe?.map((seat, index) => (
+              <Seat
+                key={index}
+                seat={seat}
+                isSelected={selectedSeats?.some((s) => s.maGhe === seat.maGhe)}
+                onClick={() => handleSeatClick(seat)}
+              />
+            ))}
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row lg:gap-8 py-6">
-          <div className="">
-            <img src="" alt="" />
+      </div>
+
+      <div className="movieInfo flex flex-col py-5 rounded-md">
+        <div className="flex justify-between items-center mx-4 mb-4">
+          <img
+            src={ticketRoomList?.thongTinPhim?.hinhAnh}
+            alt=""
+            className="w-1/3 h-40 rounded object-cover"
+          />
+          <h2 className="font-semibold text-2xl text-white ml-4">
+            {ticketRoomList?.thongTinPhim?.tenPhim}
+          </h2>
+        </div>
+        <div className="details mx-4 space-y-3">
+          <div className="flex justify-between">
+            <strong className="text-white">Cụm rạp:</strong>
+            <p className="text-amber-200">
+              {ticketRoomList?.thongTinPhim?.tenCumRap}
+            </p>
           </div>
-          {/* <table className="">
-          
-            <tbody>
-              <tr>
-                <td className="w-1/2">
-                  <img src="" alt="" />
-                </td>
-                <td className="text-left pl-4 font-semibold">Phim</td>
-              </tr>
-              <tr>
-                <td className="w-1/2 text-left pl-4">Dia chi</td>
-              </tr>
-              <tr>
-                <td className="w-1/2 text-left pl-4">Rap</td>
-              </tr>
-              <tr>
-                <td className="w-1/2 text-left pl-4">Gio chieu</td>
-              </tr>
-              <tr>
-                <td>Gia ve</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Ghe dang chon</td>
-                <td></td>
-              </tr>
-              <hr className="w-full" />
-              <tr>
-                <td colSpan={2}>Total</td>
-              </tr>
-              <button className="bg-yellow-600">THANH TOAN</button>
-            </tbody>
-          </table> */}
+          <div className="flex justify-between">
+            <strong className="text-white">Rạp:</strong>
+            <p className="text-amber-200">
+              {ticketRoomList?.thongTinPhim?.tenRap}
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <strong className="text-white">Ngày giờ chiếu:</strong>
+            <div className="flex space-x-3">
+              <div className="text-amber-200">
+                {moment(
+                  ticketRoomList?.thongTinPhim?.ngayChieu,
+                  "DD/MM/YYYY"
+                ).format("DD/MM/yyyy")}
+              </div>
+              <div className="text-red-500">
+                {moment(ticketRoomList?.thongTinPhim?.gioChieu, "HHmm").format(
+                  "LT"
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <strong className="text-white">Địa chỉ:</strong>
+            <p className="text-amber-200">
+              {ticketRoomList?.thongTinPhim?.diaChi}
+            </p>
+          </div>
+          <div className="flex justify-between">
+            <strong className="text-white">Ghế đã chọn:</strong>
+            {selectedSeats?.length > 0 && (
+              <p className="text-green-500">
+                {selectedSeats?.map((seat) => seat.tenGhe).join(", ")}
+              </p>
+            )}
+          </div>
+
+          <hr className="my-4" />
+          <div className="flex justify-between">
+            <strong className="text-white text-xl">Thành Tiền:</strong>
+            <p className="text-green-500">
+              <span className="text-xl">{total()} VND</span>
+            </p>
+          </div>
+          <button
+            onClick={handleBooking}
+            className="bg-yellow-500 px-4 py-2 rounded text-white w-full mt-3"
+          >
+            THANH TOÁN
+          </button>
         </div>
       </div>
     </div>

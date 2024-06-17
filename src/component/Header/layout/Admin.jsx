@@ -1,42 +1,49 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FileOutlined,
   FolderOutlined,
   UserOutlined,
   PlusCircleOutlined,
-  DesktopOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { Link, Outlet } from "react-router-dom";
-import Header from "../Header";
+import { useSelector } from "react-redux";
+
 const { Content, Sider } = Layout;
 const items = [
   {
     key: "user",
     icon: <UserOutlined />,
-    label: <Link to="/admin/users">User</Link>,
-  },
-  {
-    key: "files",
-    icon: <FileOutlined />,
-    label: "Files",
+    label: "Quản lý người dùng",
     children: [
       {
-        key: "films",
+        key: "User List",
         icon: <FolderOutlined />,
-        label: <Link to="/admin/films">Films</Link>,
+        label: <Link to="/admin/users">Danh sách</Link>,
       },
       {
-        key: "addFilm",
+        key: "addUser",
         icon: <PlusCircleOutlined />,
-        label: <Link to="/admin/add">Add Film</Link>,
+        label: <Link to="/admin/adduser">Thêm</Link>,
       },
     ],
   },
   {
-    key: "showtimes",
-    icon: <DesktopOutlined />,
-    label: "Show Time",
+    key: "files",
+    icon: <FileOutlined />,
+    label: "Quản lý phim",
+    children: [
+      {
+        key: "films",
+        icon: <FolderOutlined />,
+        label: <Link to="/admin/films">Danh sách phim</Link>,
+      },
+      {
+        key: "addFilm",
+        icon: <PlusCircleOutlined />,
+        label: <Link to="/admin/addfilm">Thêm phim</Link>,
+      },
+    ],
   },
 ];
 
@@ -45,10 +52,42 @@ const AdminLayout = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  let { user } = useSelector((state) => state.userSlice);
+  let handleLogout = () => {
+    //xoá localStorage
+    localStorage.removeItem("USER_INFOR");
+    window.location.reload();
+  };
+  let renderMenu = () => {
+    let cssBtn = "text-gray-500 hover:text-black";
+    if (user) {
+      // đã đăng nhập
+      return (
+        <div className="grid grid-rows-2 space-y-2">
+          Xin chào <span className="uppercase text-gray-500">{user.hoTen}</span>
+          <button className={cssBtn} onClick={handleLogout}>
+            Đăng xuất
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <button
+            onClick={() => {
+              window.location.href = "/login";
+            }}
+            className={cssBtn}
+          >
+            Đăng nhập
+          </button>
+        </>
+      );
+    }
+  };
+
   return (
     <Layout>
-      {/* <Header>
-      </Header> */}
       <Layout>
         <Sider
           width={200}
@@ -56,6 +95,7 @@ const AdminLayout = () => {
             background: colorBgContainer,
           }}
         >
+          <div className="text-center py-5">{renderMenu()}</div>
           <Menu
             mode="inline"
             defaultSelectedKeys={["user"]}
@@ -76,11 +116,13 @@ const AdminLayout = () => {
             style={{
               margin: "16px 0",
             }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+            items={[
+              {
+                title: <Link to="/">Home</Link>,
+              },
+              { title: "Admin" },
+            ]}
+          />
 
           <Content
             style={{

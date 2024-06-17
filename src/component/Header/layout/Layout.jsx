@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../../Footer/Footer";
-import Menus from "../../Menus/Menus";
 
 export default function Layout() {
   return (
@@ -10,8 +9,6 @@ export default function Layout() {
       <Header />
       <Outlet />
       <Footer />
-      {/* <Menus /> */}
-
     </div>
   );
 }

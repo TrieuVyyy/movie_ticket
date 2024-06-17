@@ -1,19 +1,34 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { https } from "../service/api";
 
-export const fetchUserListAction = createAsyncThunk("fetchUserList", async () => {
-  let res = await https.get("/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP00");
-  return res.data.content;
-});
+export const fetchUserListAction = createAsyncThunk(
+  "fetchUserList",
+  async () => {
+    let res = await https.get(
+      "/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP00"
+    );
+    return res.data.content;
+  }
+);
 
 const initialState = {
-  users: [],
+  users: null,
+  isLoading: false,
 };
 
 const aduserSlice = createSlice({
   name: "aduserSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.users = action.payload;
+      localStorage.getItem("USER_INFOR", action.payload.accessToken);
+    },
+    logOut: (state) => {
+      state.users = null;
+      localStorage.removeItem("USER_INFOR");
+    },
+  },
   extraReducers: {
     [fetchUserListAction.fulfilled]: (state, action) => {
       state.users = action.payload;
@@ -28,7 +43,7 @@ const aduserSlice = createSlice({
   },
 });
 
-export const {} = aduserSlice.actions;
+export const { setUser, logOut } = aduserSlice.actions;
 
 export default aduserSlice.reducer;
 // rxslice

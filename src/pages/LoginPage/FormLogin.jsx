@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
 import { TeamOutlined, LockFilled } from "@ant-design/icons";
-// Test@13000
+
 const FormLogin = () => {
   let navigate = useNavigate();
   let dispatch = useDispatch();
@@ -21,9 +21,10 @@ const FormLogin = () => {
         let dataJson = JSON.stringify(res.data.content);
         localStorage.setItem("USER_INFOR", dataJson);
         message.success("Đăng nhập thành công");
+        console.log(res.data)
       })
       .catch((err) => {
-        message.error("Đăng nhập thất bại");
+        message.error("Tài khoản hoặc mật khẩu không đúng!");
         console.log(err);
       });
   };
