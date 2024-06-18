@@ -26,10 +26,10 @@ const formItemLayout = {
 };
 
 export default function EditFilm() {
-  const navigate = useNavigate();
+  let { maPhim } = useParams();
   const [formData, setFormData] = useState({});
   const [fileList, setFileList] = useState([]);
-  let { maPhim } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     https
@@ -99,26 +99,27 @@ export default function EditFilm() {
     }
 
     if (fileList.length > 0) {
-      formDataToSend.append('hinhAnh', fileList[0].originFileObj);
+      formDataToSend.append("hinhAnh", fileList[0].originFileObj);
     }
 
     https
-    .post(`/api/QuanLyPhim/CapNhatPhimUpload`, formDataToSend)
-    .then((res) => {
-        console.log(res.data)
+      .post(`/api/QuanLyPhim/CapNhatPhimUpload`, formDataToSend)
+      .then((res) => {
+        console.log(res.data);
         message.success("Cập nhật thành công");
-        navigate('/admin/films')
-    })
-    .catch((err) => {
-        console.log(err)
-        message.error('Cập nhật thất bại')
-    })
-
+        navigate("/admin/films");
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error("Cập nhật thất bại");
+      });
   };
 
   return (
     <div>
-      <h1 className="font-semibold text-2xl text-red-600 pb-8">Cập nhật thông tin phim</h1>
+      <h1 className="font-semibold text-2xl text-red-600 pb-8">
+        Cập nhật thông tin phim
+      </h1>
       <Form
         {...formItemLayout}
         variant="filled"
@@ -127,15 +128,27 @@ export default function EditFilm() {
         }}
       >
         <Form.Item label="Tên phim">
-          <Input value={formData?.tenPhim} name="tenPhim" onChange={handleChange} />
+          <Input
+            value={formData?.tenPhim}
+            name="tenPhim"
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item label="Bí danh">
-          <Input value={formData?.biDanh} name="biDanh" onChange={handleChange} />
+          <Input
+            value={formData?.biDanh}
+            name="biDanh"
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item label="Trailer">
-          <Input value={formData?.trailer} name="trailer" onChange={handleChange} />
+          <Input
+            value={formData?.trailer}
+            name="trailer"
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item label="Mô tả">
@@ -147,6 +160,7 @@ export default function EditFilm() {
         </Form.Item>
 
         <Form.Item label="Ngày khởi chiếu">
+          <span className="mr-3">{moment(formData?.ngayKhoiChieu).format("DD/MM/YYYY")}</span>
           <DatePicker
             name="ngayKhoiChieu"
             format="DD/MM/YYYY"
@@ -200,7 +214,11 @@ export default function EditFilm() {
         </Form.Item>
 
         <Form.Item label="Đánh giá">
-          <Input value={formData?.danhGia} name="danhGia" onChange={handleChange} />
+          <Input
+            value={formData?.danhGia}
+            name="danhGia"
+            onChange={handleChange}
+          />
         </Form.Item>
 
         <Form.Item

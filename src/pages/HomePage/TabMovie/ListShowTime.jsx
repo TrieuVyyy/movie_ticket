@@ -1,6 +1,6 @@
-import moment from "moment";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function ListShowTime({ dsPhim }) {
   const navigate = useNavigate();
@@ -23,11 +23,7 @@ export default function ListShowTime({ dsPhim }) {
       {dsPhim.map((phim, index) => {
         return (
           <div className="flex space-x-5 p-4 shadow-md">
-            <img
-              className="w-24 h-28 rounded object-cover"
-              src={phim.hinhAnh}
-              alt=""
-            />
+            <img className="w-24 h-28 rounded" src={phim.hinhAnh} alt="" />
             <div>
               <h2 className="text-xl font-bold text-gray-800 uppercase pb-3">
                 {phim.tenPhim}
@@ -38,9 +34,9 @@ export default function ListShowTime({ dsPhim }) {
                     <button
                       key={item.maLichChieu}
                       onClick={() => handleBookingClick(item.maLichChieu)}
-                      className="bg-amber-300 font-light text-center px-2 py-2 rounded hover:bg-amber-400"
+                      className="border border-black font-light text-center px-1 py-1 rounded hover:bg-amber-100"
                     >
-                      {moment(item.ngayChieuGioChieu, ).format("DD/MM/yyyy ~ LT")}
+                      {moment(item.ngayChieuGioChieu).format("DD/MM/yyyy ~ LT")}
                     </button>
                   );
                 })}

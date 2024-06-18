@@ -5,8 +5,7 @@ import { SmoothHorizontalScrooling } from "../../../utils";
 import { useViewport } from "../../../component/hooks/useViewport";
 import { NavLink } from "react-router-dom";
 
-export default function ListMovie(props) {
-  const { idSection } = props;
+export default function ListMovie() {
   const [movieArr, setMovieArr] = useState([]);
   const sliderRef = useRef();
   const movieRef = useRef();
@@ -59,8 +58,6 @@ export default function ListMovie(props) {
     }
   };
   const handleScrollLeft = () => {
-    const maxScrollLeft =
-      sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
     if (sliderRef.current.scrollLeft > 0) {
       SmoothHorizontalScrooling(
         sliderRef.current,
@@ -75,23 +72,31 @@ export default function ListMovie(props) {
     <div id="listphim" className="slider-movie container py-5">
       <div className="text-center space-x-10 text-2xl font-semibold">
         <button
-          className={`${activeTab === "showing" ? "border-b-4 border-amber-300" : "text-gray-500 text-xl"}` }
+          className={`${
+            activeTab === "showing"
+              ? "border-b-4 border-amber-300"
+              : "text-gray-500 text-xl"
+          }`}
           onClick={handleShowwing}
         >
           PHIM ĐANG CHIẾU
         </button>
         <button
-          className={`${activeTab === "upcoming" ? "border-b-4 border-amber-300" : "text-gray-500 text-xl"}`}
+          className={`${
+            activeTab === "upcoming"
+              ? "border-b-4 border-amber-300"
+              : "text-gray-500 text-xl"
+          }`}
           onClick={handleUpcoming}
         >
           PHIM SẮP CHIẾU
         </button>
       </div>
       {activeTab === "showing" && (
-        <div className="showing-container pt-3 px-5 relative w-full h-full">
+        <div className="showing-container">
           <div
             ref={sliderRef}
-            className="movieSlider grid gap-2 transition-all duration-300 ease-linear overflow-hidden py-7 "
+            className="movieSlider"
             style={
               getActiveMovies().length > 0
                 ? {
@@ -108,20 +113,12 @@ export default function ListMovie(props) {
             }
           >
             {getActiveMovies().map((item) => (
-              <div
-                ref={movieRef}
-                key={item.maPhim}
-                className="movieItem w-[300px] h-[400px] overflow-hidden rounded-lg relative"
-              >
-                <img
-                  src={item.hinhAnh}
-                  alt
-                  className="object-cover w-full h-full hover:scale-110 hover:z-10"
-                />
-                <div className="name absolute left-0 right-0 bottom-0 p-2 text-center text-sm text-white">
+              <div ref={movieRef} key={item.maPhim} className="movieItem ">
+                <img src={item.hinhAnh} alt className="object-cover" />
+                <div className="name">
                   <span className="movie-title">{item.tenPhim}</span>
                 </div>
-                <div className="btnDetail absolute left-0 right-0 bottom-0 text-center opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <div className="btnDetail">
                   <NavLink
                     to={`/detail/${item.maPhim}`}
                     className="block p-2 text-center text-black font-semibold hover:bg-amber-300"
@@ -132,22 +129,19 @@ export default function ListMovie(props) {
               </div>
             ))}
           </div>
-          <div className="btnLeft flex justify-center items-center rounded-sm text-slate-300 absolute top-1/2 left-8 z-20 cursor-pointer">
+          <div className="btnLeft left-8">
             <LeftOutlined onClick={handleScrollLeft} className="text-4xl" />
           </div>
-          <div
-            onClick={handleScrollRight}
-            className="btnRight flex justify-center items-center rounded-sm text-slate-300 absolute top-1/2 right-8 z-20 cursor-pointer"
-          >
+          <div onClick={handleScrollRight} className="btnRight right-8">
             <RightOutlined className="text-4xl" />
           </div>
         </div>
       )}
       {activeTab === "upcoming" && (
-        <div className="upcoming-container pt-3 px-5 relative w-full h-full">
+        <div className="upcoming-container">
           <div
             ref={sliderRef}
-            className="movieSlider grid gap-2 transition-all duration-300 ease-linear overflow-hidden py-7 "
+            className="movieSlider"
             style={
               getActiveMovies().length > 0
                 ? {
@@ -164,36 +158,28 @@ export default function ListMovie(props) {
             }
           >
             {getActiveMovies().map((item) => (
-              <div
-                ref={movieRef}
-                key={item.maPhim}
-                className="movieItem w-[300px] h-[400px] overflow-hidden rounded-lg relative"
-              >
-                <img
-                  src={item.hinhAnh}
-                  alt
-                  className="object-cover w-full h-full hover:scale-110 hover:z-10"
-                />
-                <div className="name absolute left-0 right-0 bottom-0 p-2 text-center text-sm text-white">
+              <div ref={movieRef} key={item.maPhim} className="movieItem">
+                <img src={item.hinhAnh} className="poster object-cover" />
+                <div className="name">
                   <span className="movie-title">{item.tenPhim}</span>
                 </div>
-                <div className="btnDetail absolute left-0 right-0 bottom-0 text-center opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                <div className="btnDetail">
                   <NavLink
                     to={`/detail/${item.maPhim}`}
-                    className="block text-center p-2 text-white hover:bg-slate-500"
+                    className="block p-2 text-center text-black font-semibold hover:bg-amber-300"
                   >
-                    ĐẶT VÉ
+                    CHI TIẾT
                   </NavLink>
                 </div>
               </div>
             ))}
           </div>
-          <div className="btnLeft flex justify-center items-center rounded-sm text-slate-300 absolute top-1/2 left-8 z-20 cursor-pointer">
+          <div className="btnLeft left-8">
             <LeftOutlined onClick={handleScrollLeft} className="text-4xl" />
           </div>
           <div
             onClick={handleScrollRight}
-            className="btnRight flex justify-center items-center rounded-sm text-slate-300 absolute top-1/2 right-8 z-20 cursor-pointer"
+            className="btnRight right-8"
           >
             <RightOutlined className="text-4xl" />
           </div>

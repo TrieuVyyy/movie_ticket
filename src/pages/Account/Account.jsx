@@ -12,7 +12,7 @@ const items = [
   },
   {
     key: "2",
-    label: "LỊCH SỬ ĐẶT VÉ",
+    label: "LỊCH SỬ GIAO DỊCH",
     children: <History />,
   },
 ];

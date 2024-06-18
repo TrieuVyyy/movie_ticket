@@ -16,7 +16,7 @@ export default function Header() {
     window.location.reload();
   };
 
-  const items = [
+  const items = user ? [
     {
       key: "1",
       label: <NavLink to={`/account/${user.taiKhoan}`}>Tài khoản</NavLink>,
@@ -27,10 +27,10 @@ export default function Header() {
       label: <a onClick={handleLogout}>Đăng xuất</a>,
       icon: <LogoutOutlined />,
     },
-  ];
+  ] : [];
 
   let renderMenu = () => {
-    let cssBtn = "rounded px-5 py-2 border-2 border-white text-white";
+    let cssBtn = "rounded px-3 py-1 border-2 border-white text-white";
     if (user) {
       // đã đăng nhập
       return (
@@ -39,10 +39,7 @@ export default function Header() {
             Xin chào <span className="uppercase">{user.hoTen}</span> !
           </span>
           <Dropdown menu={{ items }} trigger={["click"]}>
-            <Avatar
-              size={52}
-              icon={<UserOutlined />}
-            />
+            <Avatar size={52} icon={<UserOutlined />} />
           </Dropdown>
         </>
       );
@@ -64,6 +61,7 @@ export default function Header() {
       );
     }
   };
+  
   return (
     <header className="fixed top-0 left-0 w-full bg-black bg-opacity-40 z-10">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">

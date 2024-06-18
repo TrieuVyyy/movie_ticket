@@ -14,10 +14,10 @@ export default function HomePage() {
   const [scrollY] = useScrollY();
   return (
     <div>
-      <ListBanner idSection="home" />
+      <ListBanner />
       <div className="container mx-auto">
-        <ListMovie idSection="phim" />
-        <TabMovie idSection="lichchieu" />
+        <ListMovie />
+        <TabMovie />
       </div>
 
       <UpCircleFilled

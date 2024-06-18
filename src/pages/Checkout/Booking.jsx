@@ -4,18 +4,20 @@ import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import Seat from "./Seat";
 import { message } from "antd";
+import { setBookingHistory } from "../../redux/bookingHistory";
+import { useDispatch } from "react-redux";
 
 export default function Booking() {
   let { maLichChieu } = useParams();
   const [ticketRoomList, setTicketRoomList] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     https
       .get(`/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`)
       .then((res) => {
-        console.log(res.data);
         setTicketRoomList(res.data.content);
       })
       .catch((err) => {
@@ -33,8 +35,19 @@ export default function Booking() {
     }
   };
 
+  const formatPrice = (price) => {
+    return price.toLocaleString("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+  };
+
   const total = () => {
-    return selectedSeats.reduce((total, seat) => total + seat.giaVe, 0);
+    const totalPrice = selectedSeats.reduce(
+      (total, seat) => total + seat.giaVe,
+      0
+    );
+    return formatPrice(totalPrice);
   };
 
   const handleBooking = () => {
@@ -43,19 +56,38 @@ export default function Booking() {
       danhSachVe: selectedSeats.map((seat) => ({
         maGhe: seat.maGhe,
         giaVe: seat.giaVe,
+        tenGhe: seat.tenGhe,
       })),
+      tenPhim: ticketRoomList?.thongTinPhim?.tenPhim,
+      tenCumRap: ticketRoomList?.thongTinPhim?.tenCumRap,
+      tenRap: ticketRoomList?.thongTinPhim?.tenRap,
+      hinhAnh: ticketRoomList?.thongTinPhim?.hinhAnh,
+      ngayChieu: ticketRoomList?.thongTinPhim?.ngayChieu,
+      gioChieu: ticketRoomList?.thongTinPhim?.gioChieu,
     };
+
+    // update localStorage
+    let bookings = JSON.parse(localStorage.getItem("BOOKING_HISTORY")) || [];
+    bookings.push(bookingData);
+    localStorage.setItem("BOOKING_HISTORY", JSON.stringify(bookings));
+
+    // update redux store
+    dispatch(setBookingHistory(bookings));
+
     https
       .post("/api/QuanLyDatVe/DatVe", bookingData)
       .then((res) => {
+        console.log(res.data);
         message.success("Đặt vé thành công");
-        const taiKhoan = JSON.parse(localStorage.getItem("USER_INFOR"))?.taiKhoan;
+        const taiKhoan = JSON.parse(
+          localStorage.getItem("USER_INFOR")
+        )?.taiKhoan;
+
         navigate(`/account/${taiKhoan}`, {
           state: { activeTab: "2" },
         });
       })
       .catch((err) => {
-        console.log(err);
         message.error("Đặt vé thất bại, vui lòng thử lại");
       });
   };
@@ -63,9 +95,7 @@ export default function Booking() {
   return (
     <div className="seatStructure mx-5 py-5 flex justify-center items-center space-x-10">
       <div className="seatSelect">
-        <ul className="showcase py-4 flex justify-center space-x-5">
-          <h1 className="title text-lg font-medium mr-3">CHỌN GHẾ LIỀN KỀ:</h1>
-
+        <ul className="showcase py-4 flex justify-center items-center space-x-4 text-white">
           <li>
             <div className="seat vip"></div>
             <small>Vip</small>
@@ -103,7 +133,7 @@ export default function Booking() {
           <img
             src={ticketRoomList?.thongTinPhim?.hinhAnh}
             alt=""
-            className="w-1/3 h-40 rounded object-cover"
+            className="w-1/3 h-40 rounded"
           />
           <h2 className="font-semibold text-2xl text-white ml-4">
             {ticketRoomList?.thongTinPhim?.tenPhim}
@@ -157,7 +187,7 @@ export default function Booking() {
           <div className="flex justify-between">
             <strong className="text-white text-xl">Thành Tiền:</strong>
             <p className="text-green-500">
-              <span className="text-xl">{total()} VND</span>
+              <span className="text-xl font-bold">{total()}</span>
             </p>
           </div>
           <button

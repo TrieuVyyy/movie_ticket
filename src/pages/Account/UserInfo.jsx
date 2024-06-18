@@ -13,6 +13,7 @@ export default function UserInfo() {
     https
       .post(`/api/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${taiKhoan}`)
       .then((res) => {
+        console.log(res.data)
         setUserInfo(res.data.content);
       })
       .catch((error) => {
@@ -38,21 +39,28 @@ export default function UserInfo() {
 
   const handleUpdateInfo = () => {
     https
-        .put(`/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, userInfo)
-        .then((res) => {
-          message.success("Cập nhật thành công");
-          setIsEditing(false);
-          fetchUserInfo();
-        })
-        .catch((err) => {
-          message.error("Cập nhật thất bại");
-        });
-  }
+      .put(`/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, userInfo)
+      .then((res) => {
+        message.success("Cập nhật thành công");
+        setIsEditing(false);
+        fetchUserInfo();
+      })
+      .catch((err) => {
+        message.error("Bạn không có quyền thay đổi tài khoản người khác !");
+      });
+  };
 
   return (
     <div className="account">
+      <div className="text-center">
+        <h2 className="font-bold">Xin chào {userInfo.hoTen},</h2>
+        <p>
+          Với trang này, bạn sẽ quản lý được tất cả thông tin tài khoản của
+          mình.
+        </p>
+      </div>
       <Button onClick={handleEdit} className="bg-orange-400 my-3">
-        {isEditing ? "Hủy" : "Chỉnh sửa"}
+        {isEditing ? "Hủy" : "Thay đổi"}
       </Button>
       <form className="grid grid-cols-2 gap-10">
         <div className="flex flex-col space-y-2">
@@ -130,7 +138,7 @@ export default function UserInfo() {
           className="bg-blue-500 mt-5"
           onClick={handleUpdateInfo}
         >
-          Cập nhật
+          Lưu lại
         </Button>
       )}
     </div>

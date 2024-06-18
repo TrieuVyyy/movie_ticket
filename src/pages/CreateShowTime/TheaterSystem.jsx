@@ -6,10 +6,9 @@ export default function TheaterSystem({onSelect}) {
   
   const [theaterList, setTheaterList] = useState([]);
   const [selectedHeThongRap, setSelectedHeThongRap] = useState("");
-  const [selectedCumRap, setSelectedCumRap] = useState("");
 
-  const handleChange = (event) => {
-    const value = event.target.value;
+  const handleChange = (e) => {
+    const value = e.target.value;
     setSelectedHeThongRap(value);
     onSelect("heThongRap", value);
   };
@@ -18,7 +17,6 @@ export default function TheaterSystem({onSelect}) {
     https
       .get("/api/QuanLyRap/LayThongTinHeThongRap")
       .then((res) => {
-        console.log(res.data);
         setTheaterList(res.data.content);
       })
       .catch((err) => {

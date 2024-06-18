@@ -6,65 +6,64 @@ import Meta from "antd/es/card/Meta";
 import { useParams } from "react-router-dom";
 import ShowTimeDetail from "./ShowTimeDetail";
 
-export default function TabDetail({ phim }) {
+export default function TabDetail() {
   const [showTime, setShowTime] = useState([]);
   let { maPhim } = useParams();
 
   useEffect(() => {
-      https
-        .get(`/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`)
-        .then((res) => {
-          console.log(res.data);
-          setShowTime(res.data.content);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    https
+      .get(`/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`)
+      .then((res) => {
+        console.log(res.data);
+        setShowTime(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   const onChange = (key) => {
     console.log(key);
   };
 
-  const items = showTime.length > 0 && (
-    showTime.heThongRapChieu.map((heThongRap) => ({
+  const items = showTime?.heThongRapChieu?.map((heThongRap) => {
+    return {
       key: heThongRap.tenHeThongRap,
       label: <img className="w-16" src={heThongRap.logo} />,
       children: (
         <Tabs
-          style={{ height: 600 }}
+          style={{ height: 200 }}
           tabPosition="left"
-          items={heThongRap.cumRapChieu.map((cumRap) => ({
-            key: cumRap.tenCumRap,
-            label: (
-              <div className="text-left w-72 truncate">
-                <h2 className="text-yellow-600 font-semibold text-base">
-                  {cumRap.tenCumRap}
-                </h2>
-                <Tooltip title={cumRap.diaChi}>
-                  <Meta className="font-thin" title={cumRap.diaChi} />
-                </Tooltip>
-              </div>
-            ),
-            children: <ShowTimeDetail />
-          }))}
+          items={heThongRap.cumRapChieu.map((cumRap) => {
+            return {
+              key: cumRap.tenCumRap,
+              label: (
+                <div className="text-left text-white w-72 truncate">
+                  <h2 className=" font-semibold text-base">
+                    {cumRap.tenCumRap}
+                  </h2>
+                  <Tooltip title={cumRap.diaChi}>
+                    <Meta className="font-thin" title={cumRap.diaChi} />
+                  </Tooltip>
+                </div>
+              ),
+              children: <ShowTimeDetail lichChieu={cumRap.lichChieuPhim} />,
+            };
+          })}
         />
       ),
-    }))
-  );
+    };
+  });
 
   return (
     <div>
-      {showTime.length > 0 && (
-        <Tabs
-          style={{ height: 600 }}
-          tabPosition="left"
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-        />
-      )}
-      {showTime.length === 0 && <h1 className="text-center text-xl font-medium italic">Hiện tại chưa có lịch chiếu</h1>}
+      <Tabs
+        style={{ height: 200 }}
+        tabPosition="left"
+        defaultActiveKey="1"
+        items={items}
+        onChange={onChange}
+      />
     </div>
   );
 }

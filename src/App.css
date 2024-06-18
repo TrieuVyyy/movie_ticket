@@ -41,7 +41,29 @@
   height: 520px;
 }
 
+/* listMovie */
+.showing-container, .upcoming-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.movieSlider{
+  display: grid;
+  gap: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
 .movieItem {
+  width: 300px; 
+  height: 400px; 
+  overflow: hidden;
+  border-radius: 0.5rem;
+  position: relative;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
@@ -57,19 +79,56 @@
   z-index: 1;
 }
 
+.object-cover{
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+}
+
 .name{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.5rem;
+  text-align: center;
   background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+}
+
+.btnDetail{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btnDetail:hover {
+  opacity: 1;
 }
 
 .btnLeft, .btnRight{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
   transform-origin: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.65);
   height: 90px;
   width: 50px;
+  border-radius: 0.2rem;
+  color: #ccc;
   transform: translateY(-20%);
+  cursor: pointer;
+  z-index: 20;
 }
+
 .btnLeft:hover, .btnRight:hover{
   background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
 }
 
 .btn_gototop{
@@ -84,6 +143,20 @@
 }
 
 /* checkout page*/
+.showcase li {
+  display: flex;
+  align-items: center;
+}
+
+.screen {
+  background-color: #fff;
+  height: 70px;
+  width: 100%;
+  transform: rotateX(-48deg);
+  box-shadow: 0 10px 10px rgb(221, 221, 221);
+  align-items: center;
+}
+
 .movieInfo {
   background: rgba(0, 0, 0, 0.5);
   box-shadow: -10px 5px 10px rgb(221, 221, 221);
@@ -141,33 +214,6 @@
 .seat:not(.sold):hover{
   cursor: pointer;
   transform: scale(1.1);
-}
-
-.showcase .seat:not(.sold):hover {
-  cursor: default;
-  transform: scale(1);
-}
-
-.showcase{
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: #fff;
-  list-style-type: none;
-  justify-content: space-between;
-}
-
-.showcase li {
-  display: flex;
-  align-items: center;
-}
-
-.screen {
-  background-color: #fff;
-  height: 70px;
-  width: 100%;
-  transform: rotateX(-48deg);
-  box-shadow: 0 10px 10px rgb(221, 221, 221);
-  align-items: center;
 }
 
 .form-control {

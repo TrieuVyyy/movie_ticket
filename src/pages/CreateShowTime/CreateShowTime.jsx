@@ -9,7 +9,7 @@ import moment from "moment";
 export default function CreateShowTime() {
   const { maPhim } = useParams();
   const [filmDetails, setFilmDetails] = useState([]);
-  const [formData, setFormData] = useState({ maPhim: parseInt(maPhim) });
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     https
@@ -39,8 +39,8 @@ export default function CreateShowTime() {
 
   const handleCreate = () => {
     if (!formData.maPhim) {
-        formData.maPhim = parseInt(maPhim);
-      }
+      formData.maPhim = parseInt(maPhim);
+    }
     https
       .post(`/api/QuanLyDatVe/TaoLichChieu`, formData)
       .then((res) => {
@@ -68,7 +68,6 @@ export default function CreateShowTime() {
           <h2 className="font-semibold text-xl text-gray-600">
             {filmDetails?.tenPhim}
           </h2>
-          
         </div>
 
         <div className="flex flex-col space-y-3">
@@ -85,7 +84,12 @@ export default function CreateShowTime() {
             onChange={onChangeDate}
           />
           <label className="text-lg font-medium">Giá vé</label>
-          <input type="number" name="giaVe" className="form-control" onChange={handleChange} />
+          <input
+            type="number"
+            name="giaVe"
+            className="form-control"
+            onChange={handleChange}
+          />
 
           <Button
             onClick={handleCreate}

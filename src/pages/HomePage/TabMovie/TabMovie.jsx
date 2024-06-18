@@ -7,7 +7,7 @@ import ListShowTime from "./ListShowTime";
 
 export default function TabMovie() {
   const [listHeThongRap, setListHeThongRap] = useState([]);
-  
+
   useEffect(() => {
     https
       .get(`/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP01`)
@@ -19,9 +19,7 @@ export default function TabMovie() {
       });
   }, []);
 
-  const onChange = (key) => {
-
-  };
+  const onChange = (key) => {};
 
   const items = listHeThongRap.map((heThongRap) => {
     return {

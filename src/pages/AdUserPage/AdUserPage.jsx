@@ -13,7 +13,6 @@ export default function AdmUserPage() {
       .get("/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP00")
       .then((res) => {
         setUserList(res.data.content);
-        console.log(res.data)
       })
       .catch((error) => {
         console.log(error);
