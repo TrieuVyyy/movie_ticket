@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { https } from "../../service/api";
 
 export default function TypeUser(props) {
-  const { onSelect, name , defaultValue} = props;
+  const { onSelect, name, defaultValue } = props;
   const [typeUser, setTypeUser] = useState([]);
 
   useEffect(() => {
@@ -16,14 +16,14 @@ export default function TypeUser(props) {
       });
   }, []);
   return (
-    <select
-    className="form-select"
-      name={name}
-      onChange={(e) => onSelect(e.target.name, e.target.value)}
-    >
+    <select className="form-select" name={name} onChange={onSelect}>
       <option>Chọn loại người dùng</option>
       {typeUser.map((item) => (
-        <option key={item.maLoaiNguoiDung} value={item.maLoaiNguoiDung} selected={item.maLoaiNguoiDung === defaultValue}>
+        <option
+          key={item.maLoaiNguoiDung}
+          value={item.maLoaiNguoiDung}
+          selected={item.maLoaiNguoiDung === defaultValue}
+        >
           {item.tenLoai}
         </option>
       ))}

@@ -105,7 +105,6 @@ export default function EditFilm() {
     https
       .post(`/api/QuanLyPhim/CapNhatPhimUpload`, formDataToSend)
       .then((res) => {
-        console.log(res.data);
         message.success("Cập nhật thành công");
         navigate("/admin/films");
       })

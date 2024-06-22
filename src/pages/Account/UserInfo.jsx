@@ -1,29 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { https } from "../../service/api";
 import { Button, message } from "antd";
 import TypeUser from "../AdUserPage/TypeUser";
 
-export default function UserInfo() {
-  const { taiKhoan } = useParams();
-  const [userInfo, setUserInfo] = useState([]);
+export default function UserInfo({ userInfo, setUserInfo }) {
   const [isEditing, setIsEditing] = useState(false);
-
-  const fetchUserInfo = () => {
-    https
-      .post(`/api/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${taiKhoan}`)
-      .then((res) => {
-        console.log(res.data)
-        setUserInfo(res.data.content);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -43,7 +24,7 @@ export default function UserInfo() {
       .then((res) => {
         message.success("Cập nhật thành công");
         setIsEditing(false);
-        fetchUserInfo();
+        setUserInfo();
       })
       .catch((err) => {
         message.error("Bạn không có quyền thay đổi tài khoản người khác !");
@@ -53,7 +34,7 @@ export default function UserInfo() {
   return (
     <div className="account">
       <div className="text-center">
-        <h2 className="font-bold">Xin chào {userInfo.hoTen},</h2>
+        <h2 className="font-bold">Xin chào {userInfo?.hoTen},</h2>
         <p>
           Với trang này, bạn sẽ quản lý được tất cả thông tin tài khoản của
           mình.
@@ -69,7 +50,7 @@ export default function UserInfo() {
             name="taiKhoan"
             type="text"
             className="form-control"
-            value={userInfo.taiKhoan}
+            value={userInfo?.taiKhoan}
             disabled={!isEditing}
             onChange={handleInputChange}
           />
@@ -78,7 +59,7 @@ export default function UserInfo() {
             name="matKhau"
             type="text"
             className="form-control"
-            value={userInfo.matKhau}
+            value={userInfo?.matKhau}
             disabled={!isEditing}
             onChange={handleInputChange}
           />
@@ -87,7 +68,7 @@ export default function UserInfo() {
             name="email"
             type="text"
             className="form-control"
-            value={userInfo.email}
+            value={userInfo?.email}
             disabled={!isEditing}
             onChange={handleInputChange}
           />
@@ -96,7 +77,7 @@ export default function UserInfo() {
             name="soDT"
             type="text"
             className="form-control"
-            value={userInfo.soDT}
+            value={userInfo?.soDT}
             disabled={!isEditing}
             onChange={handleInputChange}
           />
@@ -108,7 +89,7 @@ export default function UserInfo() {
             name="hoTen"
             type="text"
             className="form-control"
-            value={userInfo.hoTen}
+            value={userInfo?.hoTen}
             disabled={!isEditing}
             onChange={handleInputChange}
           />
@@ -117,16 +98,15 @@ export default function UserInfo() {
             name="maNhom"
             type="text"
             className="form-control"
-            value={userInfo.maNhom}
+            value={userInfo?.maNhom}
             disabled={!isEditing}
             onChange={handleInputChange}
           />
           <label>Mã loại người dùng:</label>
           <TypeUser
             name="maLoaiNguoiDung"
-            defaultValue={userInfo.maLoaiNguoiDung}
-            disabled={!isEditing}
-            onChange={handleInputChange}
+            defaultValue={userInfo?.maLoaiNguoiDung}
+            onSelect={handleInputChange}
           />
         </div>
       </form>
@@ -141,6 +121,8 @@ export default function UserInfo() {
           Lưu lại
         </Button>
       )}
+
+
     </div>
   );
 }

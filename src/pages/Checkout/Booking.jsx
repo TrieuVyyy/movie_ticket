@@ -4,15 +4,12 @@ import moment from "moment";
 import { useNavigate, useParams } from "react-router-dom";
 import Seat from "./Seat";
 import { message } from "antd";
-import { setBookingHistory } from "../../redux/bookingHistory";
-import { useDispatch } from "react-redux";
 
 export default function Booking() {
   let { maLichChieu } = useParams();
   const [ticketRoomList, setTicketRoomList] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     https
@@ -51,6 +48,10 @@ export default function Booking() {
   };
 
   const handleBooking = () => {
+    if (selectedSeats.length === 0) {
+      message.error("Bạn chưa chọn ghế nào, vui lòng chọn ghế trước khi thanh toán.");
+      return;
+    }
     const bookingData = {
       maLichChieu: maLichChieu,
       danhSachVe: selectedSeats.map((seat) => ({
@@ -65,19 +66,11 @@ export default function Booking() {
       ngayChieu: ticketRoomList?.thongTinPhim?.ngayChieu,
       gioChieu: ticketRoomList?.thongTinPhim?.gioChieu,
     };
-
-    // update localStorage
-    let bookings = JSON.parse(localStorage.getItem("BOOKING_HISTORY")) || [];
-    bookings.push(bookingData);
-    localStorage.setItem("BOOKING_HISTORY", JSON.stringify(bookings));
-
-    // update redux store
-    dispatch(setBookingHistory(bookings));
+    localStorage.setItem("LATEST_BOOKING", JSON.stringify(bookingData));
 
     https
       .post("/api/QuanLyDatVe/DatVe", bookingData)
       .then((res) => {
-        console.log(res.data);
         message.success("Đặt vé thành công");
         const taiKhoan = JSON.parse(
           localStorage.getItem("USER_INFOR")
@@ -155,17 +148,18 @@ export default function Booking() {
           <div className="flex justify-between">
             <strong className="text-white">Ngày giờ chiếu:</strong>
             <div className="flex space-x-3">
+            <div className="text-red-500">
+                {moment(ticketRoomList?.thongTinPhim?.gioChieu, "HHmm").format(
+                  "HH:mm"
+                )}
+              </div>
               <div className="text-amber-200">
                 {moment(
                   ticketRoomList?.thongTinPhim?.ngayChieu,
                   "DD/MM/YYYY"
-                ).format("DD/MM/yyyy")}
+                ).format("dddd, DD/MM/YYYY")}
               </div>
-              <div className="text-red-500">
-                {moment(ticketRoomList?.thongTinPhim?.gioChieu, "HHmm").format(
-                  "LT"
-                )}
-              </div>
+              
             </div>
           </div>
           <div className="flex justify-between">
@@ -185,7 +179,7 @@ export default function Booking() {
 
           <hr className="my-4" />
           <div className="flex justify-between">
-            <strong className="text-white text-xl">Thành Tiền:</strong>
+            <strong className="text-white text-xl">Tổng cộng:</strong>
             <p className="text-green-500">
               <span className="text-xl font-bold">{total()}</span>
             </p>

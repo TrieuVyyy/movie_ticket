@@ -30,7 +30,7 @@ export default function FormSignup() {
         message.success("Đăng ký thành công");
       })
       .catch((err) => {
-        message.success("Email đã tồn tại!");
+        message.error("Đăng ký thất bại, vui lòng thử lại!");
         console.log(err);
       });
   };

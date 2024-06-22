@@ -14,7 +14,6 @@ export default function TabDetail() {
     https
       .get(`/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`)
       .then((res) => {
-        console.log(res.data);
         setShowTime(res.data.content);
       })
       .catch((err) => {

@@ -3,7 +3,6 @@ import { https } from "../../service/api";
 import ThearerComplex from "./ThearerComplex";
 
 export default function TheaterSystem({onSelect}) {
-  
   const [theaterList, setTheaterList] = useState([]);
   const [selectedHeThongRap, setSelectedHeThongRap] = useState("");
 

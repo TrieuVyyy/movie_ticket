@@ -33,7 +33,7 @@ export default function CreateShowTime() {
   };
 
   const onChangeDate = (date) => {
-    const formattedDate = moment(date).format("DD/MM/YYYY HH:mm:ss");
+    const formattedDate = date.format("DD/MM/YYYY HH:mm:ss");
     setFormData({ ...formData, ngayChieuGioChieu: formattedDate });
   };
 

@@ -52,7 +52,7 @@ export default function DetailPage() {
         className="backdrop"
         style={{
           backdropFilter: "blur(5px)",
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
           padding: "20px",
           borderRadius: "10px",
         }}

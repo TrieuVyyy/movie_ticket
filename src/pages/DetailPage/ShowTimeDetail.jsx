@@ -31,7 +31,8 @@ export default function ShowTimeDetail({ lichChieu }) {
               onClick={() => handleBookingClick(phim.maLichChieu)}
               className="border border-white text-white font-light text-center px-1 py-1 rounded "
             >
-              {moment(phim.ngayChieuGioChieu).format("DD/MM/yyyy ~ LT")}
+
+              {moment(phim.ngayChieuGioChieu).format("HH:mm")} - {moment(phim.ngayChieuGioChieu).format("DD/MM/yyyy")}
             </button>
           </div>
         );

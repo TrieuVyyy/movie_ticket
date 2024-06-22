@@ -31,7 +31,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/detail/:maPhim" element={<DetailPage />} />
             <Route path="/checkout/:maLichChieu" element={<CheckOut />} />
-            <Route path="/account/:taiKhoan" element={<Account />}/>
+            <Route path="/account/:taiKhoan" element={<Account />} />
           </Route>
 
           {/* admin  */}

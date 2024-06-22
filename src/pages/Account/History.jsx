@@ -1,81 +1,74 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { List, Card } from "antd";
 import moment from "moment";
-import { useSelector } from "react-redux";
 
-const { Meta } = Card;
+export default function History({ thongTinDatVe = []}) {
+  const [latestBooking, setLatestBooking] = useState(null);
 
-export default function History() {
-  const bookings = useSelector((state) => state.bookingHistory.history);
-
-  const renderItem = (booking) => {
-    const gioChieuDate = moment(booking.gioChieu, "LT").format("LT");
-    const ngayChieuDate = moment(booking.ngayChieu, "DD/MM/yyyy").format(
-      "DD/MM/yyyy"
-    );
-
-    const formatPrice = (price) => {
-      return price.toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-      });
-    };
-
-    const totalPrice = booking.danhSachVe.reduce(
-      (total, ve) => total + ve.giaVe,
-      0
-    );
-
-    return (
-      <List.Item>
-        <Card>
-          <Meta
-            avatar={<img className="w-20" src={booking.hinhAnh} />}
-            title={booking.tenPhim}
-            description={
-              <div>
-                <div>
-                  <p>
-                    <strong>{booking.tenCumRap}</strong> - {booking.tenRap}
-                  </p>
-
-                  <p>
-                    Suất:{" "}
-                    <strong>
-                      {gioChieuDate} - {ngayChieuDate}
-                    </strong>
-                  </p>
-
-                  <p>
-                    Ghế -{" "}
-                    <strong>
-                      {booking.danhSachVe.map((ve) => ve.tenGhe).join(", ")}
-                    </strong>
-                  </p>
-                  <p>
-                    Đã thanh toán: <strong>{formatPrice(totalPrice)}</strong>
-                  </p>
-                </div>
-              </div>
-            }
-          />
-        </Card>
-      </List.Item>
-    );
-  };
+  useEffect(() => {
+    const bookingData = JSON.parse(localStorage.getItem("LATEST_BOOKING"));
+    setLatestBooking(bookingData);
+  }, []);
 
   return (
     <div>
-      <h1 className="text-2xl text-center font-semibold text-purple-500 mb-8">
-        Lịch sử đặt vé của bạn
-      </h1>
+      <p className="text-center mb-8">
+        Lưu ý: chỉ hiển thị 10 giao dịch gần nhất
+      </p>
       <List
         grid={{
           gutter: 16,
-          column: 3,
+          column: 2,
         }}
-        dataSource={bookings}
-        renderItem={(booking) => renderItem(booking)}
+        dataSource={thongTinDatVe.slice(0, 10)}
+        renderItem={(item) => {
+          return (
+            <List.Item>
+              <p className="text-center text-sm font-light pb-2">
+                {moment(item.ngayDat).format("LL")}
+              </p>
+              <Card style={{ height: "160px" }}>
+                <div className="flex justify-between space-x-4">
+                  <div className="flex space-x-4">
+                    <img className="w-20" src={item.hinhAnh} alt="" />
+                    <div>
+                      <strong>{item.tenPhim}</strong>
+                      <p>Thời lượng phim: {item.thoiLuongPhim} phút</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p>
+                      <strong>{item.danhSachGhe[0].tenHeThongRap} | {item.danhSachGhe[0].tenRap}</strong>
+                      
+                    </p>
+
+                    <p>
+                      Suất:{" "}
+                      {latestBooking && (
+                        <strong className="text-red-400">
+                          {moment(latestBooking.gioChieu, "HHmm").format(
+                            "HH:mm"
+                          )}{" "}
+                          -{" "}
+                          {moment(latestBooking.ngayChieu, "DD/MM/YYYY").format(
+                            "dddd, DD/MM/YYYY"
+                          )}
+                        </strong>
+                      )}
+                    </p>
+                    <p>
+                      Ghế:{" "}
+                      <strong className="text-red-400">
+                        {item.danhSachGhe.map((ghe) => ghe.tenGhe).join(", ")}
+                      </strong>
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </List.Item>
+          );
+        }}
       />
     </div>
   );

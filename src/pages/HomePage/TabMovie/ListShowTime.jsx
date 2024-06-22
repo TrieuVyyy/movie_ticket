@@ -36,7 +36,7 @@ export default function ListShowTime({ dsPhim }) {
                       onClick={() => handleBookingClick(item.maLichChieu)}
                       className="border border-black font-light text-center px-1 py-1 rounded hover:bg-amber-100"
                     >
-                      {moment(item.ngayChieuGioChieu).format("DD/MM/yyyy ~ LT")}
+                      {moment(item.ngayChieuGioChieu).format("HH:mm")} - {moment(item.ngayChieuGioChieu).format("DD/MM/yyyy")}
                     </button>
                   );
                 })}
