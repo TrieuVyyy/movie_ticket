@@ -69,7 +69,7 @@ export default function ListMovie() {
   };
 
   return (
-    <div id="listphim" className="slider-movie container py-5">
+    <div id="listphim" className="slider-movie py-5">
       <div className="text-center space-x-10 text-2xl font-semibold">
         <button
           className={`${
