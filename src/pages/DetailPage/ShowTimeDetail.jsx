@@ -29,7 +29,7 @@ export default function ShowTimeDetail({ lichChieu }) {
             <button
               key={phim.maLichChieu}
               onClick={() => handleBookingClick(phim.maLichChieu)}
-              className="border border-white text-white font-light text-center px-1 py-1 rounded "
+              className="border border-white text-white font-light text-center px-1 py-1 rounded hover:border-amber-300"
             >
 
               {moment(phim.ngayChieuGioChieu).format("HH:mm")} - {moment(phim.ngayChieuGioChieu).format("DD/MM/yyyy")}
