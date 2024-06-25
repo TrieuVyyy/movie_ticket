@@ -16,8 +16,8 @@ import FilmsPage from "./pages/AdFilmPage/FilmsPage";
 import AddFilmPage from "./pages/AdFilmPage/AddFilmPage";
 import EditFilm from "./pages/AdFilmPage/EditFilm";
 import CreateShowTime from "./pages/CreateShowTime/CreateShowTime";
-import UserInfo from "./pages/Account/UserInfo";
 import Account from "./pages/Account/Account";
+import EditUser from "./pages/AdUserPage/EditUser";
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
             <Route path="adduser" element={<AddUser />} />
             <Route path="films" element={<FilmsPage />} />
             <Route path="addfilm" element={<AddFilmPage />} />
-            <Route path="edituser/:taiKhoan" element={<UserInfo />} />
+            <Route path="edituser/:taiKhoan" element={<EditUser />} />
             <Route path="editfilm/:maPhim" element={<EditFilm />} />
             <Route path="showtime/:maPhim" element={<CreateShowTime />} />
           </Route>

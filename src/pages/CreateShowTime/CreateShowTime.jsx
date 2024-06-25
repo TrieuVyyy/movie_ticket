@@ -4,12 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button, message } from "antd";
 import TheaterSystem from "./TheaterSystem";
 import { DatePicker } from "antd";
-import moment from "moment";
 
 export default function CreateShowTime() {
   const { maPhim } = useParams();
   const [filmDetails, setFilmDetails] = useState([]);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     https
@@ -38,14 +38,23 @@ export default function CreateShowTime() {
   };
 
   const handleCreate = () => {
-    if (!formData.maPhim) {
-      formData.maPhim = parseInt(maPhim);
+    if (!formData.maRap || !formData.ngayChieuGioChieu || !formData.giaVe) {
+      message.error("Vui lòng nhập đầy đủ thông tin.");
+      return;
     }
+
+    const lich = {
+      maPhim: maPhim,
+      ngayChieuGioChieu: formData.ngayChieuGioChieu,
+      maRap: formData.maCumRap,
+      giaVe: formData.giaVe,
+    };
+
     https
-      .post(`/api/QuanLyDatVe/TaoLichChieu`, formData)
+      .post(`/api/QuanLyDatVe/TaoLichChieu`, lich)
       .then((res) => {
-        console.log(res.data);
         message.success("Tạo lịch chiếu thành công");
+        navigate("/admin/films");
       })
       .catch((err) => {
         console.log(err);
@@ -79,7 +88,7 @@ export default function CreateShowTime() {
             name="ngayChieuGioChieu"
             format="DD/MM/YYYY HH:mm:ss"
             showTime={{
-              format: "DD/MM/YYYY HH:mm:ss",
+              format: "HH:mm:ss",
             }}
             onChange={onChangeDate}
           />

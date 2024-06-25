@@ -16,13 +16,12 @@ export default function TypeUser(props) {
       });
   }, []);
   return (
-    <select className="form-select" name={name} onChange={onSelect}>
+    <select value={defaultValue} className="form-select" name={name} onChange={onSelect}>
       <option>Chọn loại người dùng</option>
       {typeUser.map((item) => (
         <option
           key={item.maLoaiNguoiDung}
           value={item.maLoaiNguoiDung}
-          selected={item.maLoaiNguoiDung === defaultValue}
         >
           {item.tenLoai}
         </option>

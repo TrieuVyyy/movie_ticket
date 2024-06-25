@@ -1,48 +1,53 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { https } from "../../service/api";
-import { Button, message } from "antd";
-import TypeUser from "../AdUserPage/TypeUser";
+import { message, Button } from "antd";
+import TypeUser from "./TypeUser";
 
-export default function UserInfo({ accountInfor, setAccountInfor }) {
-  const [isEditing, setIsEditing] = useState(false);
+export default function EditUser() {
+  let { taiKhoan } = useParams();
+  const [userInfor, setUserInfor] = useState([]);
 
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
+  const fechUserInfor = () => {
+    https
+      .post(`/api/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${taiKhoan}`)
+      .then((res) => {
+        setUserInfor(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  useEffect(() => {
+    fechUserInfor();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAccountInfor({
-      ...accountInfor,
+    setUserInfor({
+      ...userInfor,
       [name]: value,
     });
   };
 
   const handleUpdateInfo = () => {
     https
-      .post(`/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, accountInfor)
+      .put(`/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, userInfor)
       .then((res) => {
         message.success("Cập nhật thành công");
-        setIsEditing(false);
-        setAccountInfor();
+        fechUserInfor();
       })
       .catch((err) => {
-        message.error("Cập nhật thất bại !");
+        message.error("Bạn không có quyền thay đổi tài khoản người khác !");
       });
   };
 
   return (
     <div className="account">
-      <div className="text-center">
-        <h2 className="font-bold">Xin chào {accountInfor?.hoTen},</h2>
-        <p>
-          Với trang này, bạn sẽ quản lý được tất cả thông tin tài khoản của
-          mình.
-        </p>
-      </div>
-      <Button onClick={handleEdit} className="bg-orange-400 my-3">
-        {isEditing ? "Hủy" : "Cập nhật"}
-      </Button>
+      <h1 className="font-semibold text-2xl text-red-600 py-8">
+        Cập nhật người dùng
+      </h1>
       <form className="grid grid-cols-2 gap-10">
         <div className="flex flex-col space-y-2">
           <label>Tài khoản:</label>
@@ -50,8 +55,7 @@ export default function UserInfo({ accountInfor, setAccountInfor }) {
             name="taiKhoan"
             type="text"
             className="form-control"
-            value={accountInfor?.taiKhoan}
-            disabled={!isEditing}
+            value={userInfor.taiKhoan}
             onChange={handleInputChange}
           />
           <label>Mật khẩu:</label>
@@ -59,8 +63,7 @@ export default function UserInfo({ accountInfor, setAccountInfor }) {
             name="matKhau"
             type="text"
             className="form-control"
-            value={accountInfor?.matKhau}
-            disabled={!isEditing}
+            value={userInfor.matKhau}
             onChange={handleInputChange}
           />
           <label>Email:</label>
@@ -68,8 +71,7 @@ export default function UserInfo({ accountInfor, setAccountInfor }) {
             name="email"
             type="text"
             className="form-control"
-            value={accountInfor?.email}
-            disabled={!isEditing}
+            value={userInfor.email}
             onChange={handleInputChange}
           />
           <label>Số điện thoại:</label>
@@ -77,8 +79,7 @@ export default function UserInfo({ accountInfor, setAccountInfor }) {
             name="soDT"
             type="text"
             className="form-control"
-            value={accountInfor?.soDT}
-            disabled={!isEditing}
+            value={userInfor.soDT}
             onChange={handleInputChange}
           />
         </div>
@@ -89,8 +90,7 @@ export default function UserInfo({ accountInfor, setAccountInfor }) {
             name="hoTen"
             type="text"
             className="form-control"
-            value={accountInfor?.hoTen}
-            disabled={!isEditing}
+            value={userInfor.hoTen}
             onChange={handleInputChange}
           />
           <label>Mã nhóm:</label>
@@ -98,31 +98,26 @@ export default function UserInfo({ accountInfor, setAccountInfor }) {
             name="maNhom"
             type="text"
             className="form-control"
-            value={accountInfor?.maNhom}
-            disabled={!isEditing}
+            value={userInfor.maNhom}
             onChange={handleInputChange}
           />
           <label>Mã loại người dùng:</label>
           <TypeUser
             name="maLoaiNguoiDung"
-            defaultValue={accountInfor?.maLoaiNguoiDung}
+            defaultValue={userInfor?.maLoaiNguoiDung}
             onSelect={handleInputChange}
           />
         </div>
       </form>
 
-      {isEditing && (
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="bg-blue-500 mt-5"
-          onClick={handleUpdateInfo}
-        >
-          Lưu lại
-        </Button>
-      )}
-
-
+      <Button
+        type="primary"
+        htmlType="submit"
+        className="bg-blue-500 mt-5"
+        onClick={handleUpdateInfo}
+      >
+        Cập nhật
+      </Button>
     </div>
   );
 }

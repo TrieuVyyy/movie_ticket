@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { https } from "../../service/api";
-import {
-  Space,
-  Table,
-  Input,
-  message,
-  Image,
-  Tag,
-  Tooltip,
-  Popconfirm,
-} from "antd";
+import { Space, Table, Input, message, Tag, Tooltip, Popconfirm } from "antd";
 import Meta from "antd/es/card/Meta";
 import { SearchOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -56,14 +47,14 @@ export default function FilmsPage() {
       title: "Hình ảnh",
       dataIndex: "hinhAnh",
       key: "hinhAnh",
-      render: (img) => <Image width={150} src={img} alt="" />,
+      render: (img) => <img className="w-24" src={img} alt="" />,
     },
     {
       title: "Tên phim",
       dataIndex: "tenPhim",
       key: "tenPhim",
       render: (text) => (
-        <Tag color="volcano" style={{ fontWeight: "bold" }}>
+        <Tag color="volcano" style={{ fontWeight: "bold", fontSize: "15px" }}>
           {text}
         </Tag>
       ),
@@ -74,7 +65,7 @@ export default function FilmsPage() {
       key: "moTa",
       render: (text) => (
         <Tooltip title={text}>
-          <Meta title={text.slice(0, 150) + "..."} />
+          <Meta description={text.slice(0, 150) + "..."} />
         </Tooltip>
       ),
     },

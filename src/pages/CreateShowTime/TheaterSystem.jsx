@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { https } from "../../service/api";
 import ThearerComplex from "./ThearerComplex";
 
-export default function TheaterSystem({onSelect}) {
+export default function TheaterSystem({ onSelect }) {
   const [theaterList, setTheaterList] = useState([]);
   const [selectedHeThongRap, setSelectedHeThongRap] = useState("");
 
   const handleChange = (e) => {
     const value = e.target.value;
     setSelectedHeThongRap(value);
-    onSelect("heThongRap", value);
+    onSelect({ target: { name: "heThongRap", value } });
   };
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function TheaterSystem({onSelect}) {
         console.log(err);
       });
   }, []);
+
   return (
     <div className="flex flex-col space-y-3">
       <select
@@ -30,7 +31,9 @@ export default function TheaterSystem({onSelect}) {
         onChange={handleChange}
         value={selectedHeThongRap}
       >
-        <option value='' disabled>Chọn hệ thống rạp</option>
+        <option value="" disabled>
+          Chọn hệ thống rạp
+        </option>
         {theaterList.map((heThong) => (
           <option value={heThong.maHeThongRap} key={heThong.maHeThongRap}>
             {heThong.tenHeThongRap}
@@ -40,8 +43,6 @@ export default function TheaterSystem({onSelect}) {
 
       <label className="text-lg font-medium">Cụm rạp</label>
       <ThearerComplex value={selectedHeThongRap} onSelect={onSelect} />
-
-      
     </div>
   );
 }

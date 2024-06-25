@@ -14,8 +14,8 @@ export default function AdmUserPage() {
       .then((res) => {
         setUserList(res.data.content);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 

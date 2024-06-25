@@ -21,7 +21,6 @@ const FormLogin = () => {
         let dataJson = JSON.stringify(res.data.content);
         localStorage.setItem("USER_INFOR", dataJson);
         message.success("Đăng nhập thành công");
-        console.log(res.data)
       })
       .catch((err) => {
         message.error("Tài khoản hoặc mật khẩu không đúng!");
